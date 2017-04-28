@@ -4,6 +4,9 @@
 
 #include "blackjack.h"
 
+//52 cards is store in an array to check every time the player or dealer get a card
+int deck[14] = {0};
+
 struct playerInfo * createPlayer() {
     struct playerInfo * player = malloc(sizeof(struct playerInfo));
     if (player == NULL) {
@@ -31,29 +34,42 @@ void freeDealer(struct dealerInfo * dealer) {
 }
 
 void displayTitle() {
+    setNewDeck(deck); //set new deck for new game
     printf("\n\t\tWELCOME TO BLACKJACK GAME!\n\n");
 }
 
 void askInfoPlayer(struct playerInfo *player){
-    int money = 0;
+    int money;
     printf("We hope you have a lucky day!\n");
     printf("Before you start, we would like to ask you some question: \n");
     printf("How much money do you want to play today?\n");
-    scanf("%d", &money);
 
-//    while (check == 0) {
-//        printf("\nPlease enter your name.\n");
-//        check = scanf("%s\n", player->name);
-//    }
+    while (scanf("%d", &money) != 1) {
+        printf("Please enter your money.\n");
+        scanf("%*s");
+    }
+
     player->playerMoney = money;
     printf("Your total: $%i\n", getTotalMoney(player));
 }
 
 void initCards() {
     printf("\nOk, let get started! Good luck!\n");
-
 }
 
+void setNewDeck(int *array) {
+    int length = (int) sizeof(array) / sizeof(int);
+    for (int i = 0; i < length; ++i) {
+        array[i] = 0;
+    }
+}
+
+int checkCardIfAvailable(int card, int array[]) {
+    if (array[card] > 4) {
+        return 0;
+    }
+    return 1;
+}
 
 void displayCard(int card) {
     //Card from 2 to 10
@@ -111,29 +127,57 @@ void displayCard(int card) {
 }
 
 void dealerGetFirstCard(struct dealerInfo * dealer) {
-    srand(time(NULL));
-    int card = rand() % 12 + 2; //Get random card value from 2 to 14
+    int card;
+    do {
+        srand(time(NULL));
+        card = rand() % 12 + 2; //Get random card value from 2 to 14
+        if (checkCardIfAvailable(card, deck)) {
+            deck[card]++;
+            break;
+        }
+    } while (checkCardIfAvailable(card, deck));
     displayCard(card);
     dealer->firstCard = card;
 }
 
 void dealerGetSecondCard(struct dealerInfo * dealer) {
-    srand(time(NULL));
-    int card = rand() % 12 + 2; //Get random card value from 2 to 14
+    int card;
+    do {
+        srand(time(NULL));
+        card = rand() % 12 + 2; //Get random card value from 2 to 14
+        if (checkCardIfAvailable(card, deck)) {
+            deck[card]++;
+            break;
+        }
+    } while (checkCardIfAvailable(card, deck));
     displayCard(card);
     dealer->secondCard = card;
 }
 
 void playerGetFirstCard(struct playerInfo * player) {
-    srand(time(NULL));
-    int card = rand() % 12 + 2; //Get random card value from 2 to 14
+    int card;
+    do {
+        srand(time(NULL));
+        card = rand() % 12 + 2; //Get random card value from 2 to 14
+        if (checkCardIfAvailable(card, deck)) {
+            deck[card]++;
+            break;
+        }
+    } while (checkCardIfAvailable(card, deck));
     displayCard(card);
     player->firstCard = card;
 }
 
 void playerGetSecondCard(struct playerInfo * player) {
-    srand(time(NULL));
-    int card = rand() % 12 + 2; //Get random card value from 2 to 14
+    int card;
+    do {
+        srand(time(NULL));
+        card = rand() % 12 + 2; //Get random card value from 2 to 14
+        if (checkCardIfAvailable(card, deck)) {
+            deck[card]++;
+            break;
+        }
+    } while (checkCardIfAvailable(card, deck));
     displayCard(card);
     player->secondCard;
 }

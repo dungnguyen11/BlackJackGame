@@ -33,6 +33,10 @@ void askInfoPlayer(struct playerInfo *player);
 
 void initCards();
 
+void setNewDeck(int array[]);
+
+int checkCardIfAvailable(int card, int array[]);
+
 void displayCard(int card);
 
 void dealerGetFirstCard(struct dealerInfo * dealer);
