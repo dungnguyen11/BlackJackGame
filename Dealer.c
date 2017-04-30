@@ -65,6 +65,11 @@ int getPointDealer(struct dealerInfo *dealer) {
     return total;
 }
 
+void getPointAndDispDealer(struct dealerInfo *dealer) {
+    int dealerTotalPoint = getPointDealer(dealer);
+    printf("TOTAL DEALER POINT: %d\n\n", dealerTotalPoint);
+}
+
 int isDealerBlackJack(struct dealerInfo *dealer) {
     return 0;
 }

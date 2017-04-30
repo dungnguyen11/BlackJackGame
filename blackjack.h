@@ -2,6 +2,9 @@
 // Created by Sam on 28-Apr-17.
 //
 
+#include "Player.h"
+#include "Dealer.h"
+
 #ifndef BLACKJACKGAME_BLACKJACK_H
 #define BLACKJACKGAME_BLACKJACK_H
 

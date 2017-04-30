@@ -80,6 +80,10 @@ int getPointPlayer(struct playerInfo *player) {
     return total;
 }
 
+void getPointAndDispPlayer(struct playerInfo *player) {
+    int playerTotalPoint = getPointPlayer(player);
+    printf("TOTAL PLAYER POINT: %d\n\n", playerTotalPoint); //Get and display player total point
+}
 
 int getPlayerMoney(struct playerInfo *player) {
     return player->playerMoney;

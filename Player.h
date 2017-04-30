@@ -2,6 +2,8 @@
 // Created by Sam on 30-Apr-17.
 //
 
+//#include "blackjack.h"
+
 #ifndef BLACKJACKGAME_PLAYER_H
 #define BLACKJACKGAME_PLAYER_H
 
@@ -28,6 +30,8 @@ void playerGetNextCard(struct playerInfo *player, int *deck);
 void adjustValueOfCardPlayer(struct playerInfo *player);
 
 int getPointPlayer(struct playerInfo *player);
+
+void getPointAndDispPlayer(struct playerInfo *player);
 
 int getPlayerMoney(struct playerInfo *player);
 

@@ -2,6 +2,8 @@
 // Created by Sam on 30-Apr-17.
 //
 
+//#include "blackjack.h"
+
 #ifndef BLACKJACKGAME_DEALER_H
 #define BLACKJACKGAME_DEALER_H
 
@@ -27,6 +29,8 @@ void dealerGetNextCard(struct dealerInfo *dealer, int *deck);
 void adjustValueOfCardDealer(struct dealerInfo *dealer);
 
 int getPointDealer(struct dealerInfo *dealer);
+
+void getPointAndDispDealer(struct dealerInfo *dealer);
 
 int isDealerBlackJack(struct dealerInfo *dealer);
 

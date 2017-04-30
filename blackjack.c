@@ -45,7 +45,7 @@ void play(struct playerInfo *player, struct dealerInfo *dealer, int *deck) {
 
 void initCards(struct playerInfo *player, struct dealerInfo *dealer, int *deck) {
     srand(time(NULL));
-    printf("\nOk, let get started! Good luck!\n");
+    printf("\nOk, let get started! Good luck!\n\n");
 
     //Get 2 cards of player
     printf("PLAYER FIRST CARD: \n");
@@ -56,25 +56,22 @@ void initCards(struct playerInfo *player, struct dealerInfo *dealer, int *deck) 
 
     //Check if player got Blackjack, check before change value in getPointPlayer
     if (isPlayerBlackJack(player)) {
-        printf("\nBLACKJACK!\n");
+        printf("\nBLACKJACK!\n\n");
     } else {
-        int playerTotalPoint = getPointPlayer(player);
-        printf("TOTAL PLAYER POINT: %d\n\n", playerTotalPoint); //Get and display player total point
+        getPointAndDispPlayer(player); //Get and display player total point
     }
 
     //Get first card of dealer
     sleep(1);
     printf("DEALER FIRST CARD: \n");
     dealerGetFirstCard(dealer, deck); //Dealer get first card
-//    sleep(1);
-//    printf("DEALER SECOND CARD: \n");
-//    dealerGetSecondCard(dealer, deck); //Dealer get second card
-//    int dealerTotalPoint = getPointDealer(dealer);
-//    printf("TOTAL DEALER POINT: %d\n\n", dealerTotalPoint); //Get and display dealer total point
+    int dealerTotalPoint = getPointDealer(dealer);
+    getPointAndDispDealer(dealer);
 }
 
 
 void displayCard(int card) {
+
     //Card from 2 to 10
     if (card <= 9) {
         printf("-------\n");
@@ -173,8 +170,6 @@ char askPlayAgain() {
 }
 
 //TODO: work incorrectly, maybe the same error as adjustValue function
-
-
 void findWinner(struct playerInfo *player, struct dealerInfo *dealer) {
     //TODO: add blackjack case in here
     if (getPointPlayer(player) > getPointDealer(dealer)) { //Player is higher than Dealer

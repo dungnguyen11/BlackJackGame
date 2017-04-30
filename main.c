@@ -21,6 +21,7 @@ int main() {
     displayTitle(); //Display title
 //    askMoneyPlayer(player1); //Get player money
 
+    //TODO: Check if function of player and dealer is correctly split
     char playAgain = 'y';
 
     while (playAgain == 'y') {
