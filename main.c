@@ -5,6 +5,10 @@
 #include <mem.h>
 #include "blackjack.h"
 #include "blackjack.c"
+#include "Player.h"
+//#include "Player.c"
+#include "Dealer.h"
+//#include "Dealer.c"
 
 int main() {
     //Create deck pointer
@@ -34,7 +38,7 @@ int main() {
 //        }
 
         //Ask player if he/she want to play more
-        playAgain = askPlayMore();
+        playAgain = askPlayAgain();
 
     }
 
