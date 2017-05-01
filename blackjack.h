@@ -26,8 +26,12 @@ int getCardAndDisp(int *deck);
 
 void displayCard(int card);
 
-char askPlayAgain();
+char askHitOrStand(struct playerInfo *player);
 
-void findWinner(struct playerInfo *player, struct dealerInfo *dealer);
+int isPlayerWin(struct playerInfo *player, struct dealerInfo *dealer);
+
+void printWinner(struct playerInfo *player, struct dealerInfo *dealer);
+
+char askPlayAgain();
 
 #endif //BLACKJACKGAME_BLACKJACK_H

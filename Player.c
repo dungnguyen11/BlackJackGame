@@ -21,6 +21,13 @@ void freePlayer(struct playerInfo *player) {
     free(player);
 }
 
+void setPlayerForNewGame(struct playerInfo *player) {
+    player->firstCard = 0;
+    player->secondCard = 0;
+    player->thirdCard = 0;
+    player->fourthCard = 0;
+    player->fifthCard = 0;
+}
 
 void playerGetFirstCard(struct playerInfo *player, int *deck) {
     int card = getCardAndDisp(deck);
@@ -32,23 +39,23 @@ void playerGetSecondCard(struct playerInfo *player, int *deck) {
     player->secondCard = card;
 }
 
-int countCard = 3;
+int countCardPlayer = 3;
 
 void playerGetNextCard(struct playerInfo *player, int *deck) {
 
     int card = getCardAndDisp(deck);
-    switch (countCard) {
+    switch (countCardPlayer) {
         case 3:
             player->thirdCard = card;
-            countCard++;
+            countCardPlayer++;
             break;
         case 4:
             player->fourthCard = card;
-            countCard++;
+            countCardPlayer++;
             break;
         case 5:
             player->fifthCard = card;
-            countCard++;
+            countCardPlayer++;
             break;
     }
 }
@@ -100,14 +107,12 @@ int isPlayerBlackJack(struct playerInfo *player) {
     if (player->firstCard == ace) {//If the first card is Ace, check if the second card have value of 10 or not
         if (player->secondCard == ten || player->secondCard == jack ||
             player->secondCard == queen || player->secondCard == king) {
-//            printf("\nBLACKJACK!\n");
             return 1;
         }
     } else if (player->firstCard == ten || player->firstCard == jack ||
                player->firstCard == queen ||
                player->firstCard == king) { //If the first card have value 10, check if the second is Ace or not
         if (player->secondCard == ace) {
-//            printf("\nBLACKJACK!\n");
             return 1;
         }
     }

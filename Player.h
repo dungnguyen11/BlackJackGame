@@ -18,8 +18,9 @@ struct playerInfo {
 
 struct playerInfo *createPlayer();
 
-
 void freePlayer(struct playerInfo *player);
+
+void setPlayerForNewGame(struct playerInfo *player);
 
 void playerGetFirstCard(struct playerInfo *player, int *deck);
 

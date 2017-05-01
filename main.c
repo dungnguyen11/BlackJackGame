@@ -28,6 +28,7 @@ int main() {
         srand(time(NULL));
         memset(deck, 0, sizeof(deck)); //Set all value in deck to 0s for new play
 
+
         play(player1, dealer1, deck);
 
         //Testing
@@ -39,7 +40,7 @@ int main() {
 //        }
 
         //Ask player if he/she want to play more
-        playAgain = askPlayAgain();
+        playAgain = askPlayAgain(); //askPlayAgain function returns char 'y' or 'n'
 
     }
 

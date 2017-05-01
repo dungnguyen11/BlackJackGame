@@ -20,6 +20,8 @@ struct dealerInfo *createDealer();
 
 void freeDealer(struct dealerInfo *dealer);
 
+void setDealerForNewGame(struct dealerInfo *dealer);
+
 void dealerGetFirstCard(struct dealerInfo *dealer, int *deck);
 
 void dealerGetSecondCard(struct dealerInfo *dealer, int *deck);

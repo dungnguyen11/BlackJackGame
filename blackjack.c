@@ -12,11 +12,7 @@
 
 //TODO: implement set new deck in here, having error now
 void setNewDeck(int *deck) {
-    printf("in set");
-//    int length = sizeof(deck)/ sizeof(int);
-//    for (int i = 0; i < length; ++i) {
-//       deck[i] = 0;
-//    }
+    //Set new deck for new game, set all element to 0
     memset(deck, 0, sizeof(deck));
 }
 
@@ -40,19 +36,41 @@ void askMoneyPlayer(struct playerInfo *player) {
 }
 
 void play(struct playerInfo *player, struct dealerInfo *dealer, int *deck) {
+    setPlayerForNewGame(player); //Have to set value of cards to 0 every play
+    setDealerForNewGame(dealer); //Have to set value of cards to 0 every play
+
     initCards(player, dealer, deck);
+
+    if (!isPlayerBlackJack(player)) { //When player is not blackjack, ask for hit or stand
+        char hitStand = askHitOrStand(player);
+        printf("Answer: %c\n", hitStand); //Testing
+        //TODO: Implement this
+    } else { //When player is blackjack, do not need to ask hit or stand when player have blackjack
+        sleep(1); //sleep to get different random card
+        printf("DEALER SECOND CARD: \n");
+        dealerGetSecondCard(dealer, deck);
+        if (isDealerBlackJack(dealer)) {
+            printf("\nBLACKJACK\n");
+        } else {
+            getPointAndDispDealer(dealer);
+        }
+        printWinner(player, dealer);
+    }
 }
 
 void initCards(struct playerInfo *player, struct dealerInfo *dealer, int *deck) {
+    countCardPlayer = 3;
+    countCardDealer = 3;
     srand(time(NULL));
     printf("\nOk, let get started! Good luck!\n\n");
 
     //Get 2 cards of player
+    sleep(1); //sleep to get different random card
     printf("PLAYER FIRST CARD: \n");
-    playerGetFirstCard(player, deck); //Player get first card
-    sleep(1);
+//    playerGetFirstCard(player, deck); //Player get first card
+    sleep(1);//sleep to get different random card
     printf("PLAYER SECOND CARD: \n");
-    playerGetSecondCard(player, deck); //Player get second card
+//    playerGetSecondCard(player, deck); //Player get second card
 
     //Check if player got Blackjack, check before change value in getPointPlayer
     if (isPlayerBlackJack(player)) {
@@ -152,6 +170,60 @@ int getCardAndDisp(int *deck) {
     return card;
 }
 
+char askHitOrStand(struct playerInfo *player) {
+    char answer;
+    int check = 1;
+    while (check) {
+        if (answer != '\n') { //Do not need to ask for hit or stand for blackjack cards
+            printf("Do you want to hit(h) or stand(s)?\n");
+            scanf("%s", &answer);
+            if (answer == 'h' || answer == 's') {
+                return answer;
+            }
+        }
+        check = 1;
+    }
+}
+
+int isPlayerWin(struct playerInfo *player, struct dealerInfo *dealer) {
+    if ((getPointPlayer(player) > getPointDealer(dealer)) || //Player is higher than Dealer
+        ((isPlayerBust(player) == 0) && (isDealerBust(dealer) == 1)) || //Dealer busts
+        ((isPlayerBlackJack(player) == 1) && (isDealerBlackJack(dealer) == 0))) { //Player get blackjack
+
+        return 1; //For win
+
+    } else if ((getPointPlayer(player) < getPointDealer(dealer)) || //Player is lower than Dealer
+               ((isPlayerBust(player) == 1) && (isDealerBust(dealer) == 0)) || //Player busts
+               (isPlayerBlackJack(player) == 0 && (isDealerBlackJack(dealer) == 1))) { //Dealer get blackjack
+
+        return 0; //For lose
+
+    } else if ((getPointPlayer(player) == getPointDealer(dealer)) || //Player is equal to Dealer
+               ((isPlayerBust(player) == 1) && (isDealerBust(dealer) == 1)) || //Both player and dealer bust
+               ((isPlayerBlackJack(player) == 1) &&
+                (isDealerBlackJack(dealer) == 1))) { //Both player and dealer get blackjack
+
+        return 2; //For Push
+
+    } else {
+        printf("This is exception. Fix this!");
+    }
+}
+
+//TODO: work incorrectly, maybe the same error as adjustValue function
+void printWinner(struct playerInfo *player, struct dealerInfo *dealer) {
+    //TODO: add blackjack case in here
+    if (isPlayerWin(player, dealer) == 1) { //Player win
+        printf("\n\tYOU WIN! Your wager is doubled!\n");
+    } else if (isPlayerWin(player, dealer) == 0) { //Player lose
+        printf("\n\tYOU LOSE!\n You lose your wager. Good luck next time!\n");
+    } else if (isPlayerWin(player, dealer) == 2) { //Push
+        printf("\n\tPUSH! NO WINNER.\n You will get your wager back.\n");
+    } else {
+        printf("This is exception. Fix this!");
+    }
+}
+
 char askPlayAgain() {
     char answer;
     int playAgain = 1;
@@ -167,23 +239,5 @@ char askPlayAgain() {
         }
     }
     return answer;
-}
-
-//TODO: work incorrectly, maybe the same error as adjustValue function
-void findWinner(struct playerInfo *player, struct dealerInfo *dealer) {
-    //TODO: add blackjack case in here
-    if (getPointPlayer(player) > getPointDealer(dealer)) { //Player is higher than Dealer
-        printf("\n\tYOU WIN!\n");
-    } else if (getPointPlayer(player) < getPointDealer(dealer)) { //Player is lower than Dealer
-        printf("\n\tYOU LOSE!\n Good luck next time!\n");
-    } else if (getPointPlayer(player) == getPointDealer(dealer)) { //Player is equal to Dealer
-        printf("\n\tPUSH! NO WINNER.\n You will get your wager back.\n");
-    } else if (isPlayerBust(player) && !isDealerBust(dealer)) { //Player busts
-        printf("\n\tYOU LOSE!\n Good luck next time!\n");
-    } else if (!isPlayerBust(player) && isDealerBust(dealer)) { //Dealer busts
-        printf("\n\tYOU WIN!\n");
-    } else if (isPlayerBust(player) && isDealerBust(dealer)) { //Player and dealer bust
-        printf("\n\tPUSH! NO WINNER.\n You will get your wager back.\n");
-    }
 }
 
