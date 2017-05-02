@@ -15,6 +15,7 @@ struct dealerInfo *createDealer() {
     dealer->thirdCard = 0;
     dealer->fourthCard = 0;
     dealer->fifthCard = 0;
+    return dealer;
 }
 
 void freeDealer(struct dealerInfo *dealer) {
@@ -40,23 +41,24 @@ void dealerGetSecondCard(struct dealerInfo *dealer, int *deck) {
     dealer->secondCard = card;
 }
 
-int countCardDealer = 3;
+//int countCardDealer = 3;
 
-void dealerGetNextCard(struct dealerInfo *dealer, int *deck) {
+void dealerGetNextCard(struct dealerInfo *dealer, int *deck, int countCardDealer) {
 
     int card = getCardAndDisp(deck);
+
     switch (countCardDealer) {
         case 3:
             dealer->thirdCard = card;
-            countCardDealer++;
+//            countCardDealer++;
             break;
         case 4:
             dealer->fourthCard = card;
-            countCardDealer++;
+//            countCardDealer++;
             break;
         case 5:
             dealer->fifthCard = card;
-            countCardDealer++;
+//            countCardDealer++;
             break;
     }
 
@@ -66,15 +68,24 @@ void adjustValueOfCardDealer(struct dealerInfo *dealer) {
     int jack = 12, queen = 13, king = 14;
 
     //Adjust value of jack, queen and king card to value 10
-    if (dealer->firstCard == jack || dealer->firstCard == queen || dealer->firstCard == king) { //First card
+    //First card
+    if (dealer->firstCard == jack || dealer->firstCard == queen || dealer->firstCard == king) {
         dealer->firstCard = 10;
-    } else if (dealer->secondCard == jack || dealer->secondCard == queen || dealer->secondCard == king) { //Second card
+    }
+    //Second card
+    if (dealer->secondCard == jack || dealer->secondCard == queen || dealer->secondCard == king) {
         dealer->secondCard = 10;
-    } else if (dealer->thirdCard == jack || dealer->thirdCard == queen || dealer->thirdCard == king) { //Third card
+    }
+    //Third card
+    if (dealer->thirdCard == jack || dealer->thirdCard == queen || dealer->thirdCard == king) {
         dealer->thirdCard = 10;
-    } else if (dealer->fourthCard == jack || dealer->fourthCard == queen || dealer->fourthCard == king) { //Fourth card
+    }
+    //Fourth card
+    if (dealer->fourthCard == jack || dealer->fourthCard == queen || dealer->fourthCard == king) {
         dealer->fourthCard = 10;
-    } else if (dealer->fifthCard == jack || dealer->fifthCard == queen || dealer->fifthCard == king) { //Fifth card
+    }
+    //Fifth card
+    if (dealer->fifthCard == jack || dealer->fifthCard == queen || dealer->fifthCard == king) {
         dealer->fifthCard = 10;
     }
 }

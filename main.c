@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <time.h>
-#include <mem.h>
+#include <memory.h>
 #include "blackjack.h"
 #include "blackjack.c"
 #include "Player.h"
@@ -32,8 +32,8 @@ int main() {
         play(player1, dealer1, deck);
 
         //Testing
-        printf("Player: %d %d\n", player1->firstCard, player1->secondCard);
-        printf("Dealer: %d %d\n", dealer1->firstCard, dealer1->secondCard);
+//        printf("Player: %d %d\n", player1->firstCard, player1->secondCard);
+//        printf("Dealer: %d %d\n", dealer1->firstCard, dealer1->secondCard);
 //        int length = sizeof(deck) / sizeof(int);
 //        for (int i = 0; i < length; ++i) {
 //            printf("Array %d : %d\n", i, deck[i]);
@@ -41,8 +41,26 @@ int main() {
 
         //Ask player if he/she want to play more
         playAgain = askPlayAgain(); //askPlayAgain function returns char 'y' or 'n'
-
     }
+
+        //Testing
+//    struct playerInfo *player = createPlayer();
+//    player->firstCard = 5;
+//    player->secondCard = 10;
+//    player->thirdCard = 7;
+//
+//    printf("\nBust Player: %d\n", isPlayerBust(player));
+//
+//    struct dealerInfo *dealer = createDealer();
+//    dealer->firstCard = 10;
+//    dealer->secondCard = 5;
+//    dealer->thirdCard = 7;
+//
+//    printf("\nBust dealer: %d\n", isDealerBust(dealer));
+//
+//    printWinner(player, dealer);
+
+
 
 
 

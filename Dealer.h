@@ -26,7 +26,7 @@ void dealerGetFirstCard(struct dealerInfo *dealer, int *deck);
 
 void dealerGetSecondCard(struct dealerInfo *dealer, int *deck);
 
-void dealerGetNextCard(struct dealerInfo *dealer, int *deck);
+void dealerGetNextCard(struct dealerInfo *dealer, int *deck, int countCardDealer);
 
 void adjustValueOfCardDealer(struct dealerInfo *dealer);
 

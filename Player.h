@@ -26,7 +26,7 @@ void playerGetFirstCard(struct playerInfo *player, int *deck);
 
 void playerGetSecondCard(struct playerInfo *player, int *deck);
 
-void playerGetNextCard(struct playerInfo *player, int *deck);
+void playerGetNextCard(struct playerInfo *player, int *deck, int countCardPlayer);
 
 void adjustValueOfCardPlayer(struct playerInfo *player);
 
