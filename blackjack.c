@@ -51,6 +51,7 @@ void play(struct playerInfo *player, struct dealerInfo *dealer, int *deck) {
 
             //If player choose Hit, pick next cards
             if (hitStand == 'h') {
+                sleep(1);
                 playerGetNextCard(player, deck, countCardPlayer);
                 countCardPlayer++;
                 getPointAndDispPlayer(player);
@@ -250,7 +251,7 @@ char askPlayAgain(struct playerInfo *player) {
 
     //Check if player have enough money to continue playing
     if (getTotalMoney(player) == 0) {
-        printf("You do not have enough money to continue playing.\n");
+        printf("You do not have enough money to continue playing.\n\n");
         answer = 'n';
         return answer;
     } else {
@@ -263,7 +264,7 @@ char askPlayAgain(struct playerInfo *player) {
             if (answer == 'y') {
                 break; //Continue playing, break out the while loop
             } else if (answer == 'n') {
-                printf("\tTHANKS FOR PLAYING!\n\tHAVE A GOOD DAY!\n");
+                printf("\tTHANKS FOR PLAYING!\n\n");
                 playAgain = 0; //Change playAgain value to end while loop
             }
         }
@@ -273,5 +274,69 @@ char askPlayAgain(struct playerInfo *player) {
 
 void clear() {
     while (getchar() != '\n');
+}
+
+int displayAskMenu() {
+//    system("cls");
+    int answer = 0;
+    printf("Enter 1 to Play\n");
+    printf("Enter 2 to See the Rules.\n");
+    printf("Enter 3 to Exit Game.\n");
+    scanf("%d", &answer);
+
+    while (answer != 1 && answer != 2 && answer != 3) {
+        printf("\nIncorrect choice. Please enter 1, 2 or 3.\n");
+        clear();
+        scanf("%d", &answer);
+    }
+
+    switch (answer) {
+        case 1:
+            return 1;
+        case 2:
+            return 2;
+        case 3:
+            return 3;
+    }
+}
+
+void displayRules() {
+    printf("\n           RULES of BLACKJACK");
+    printf("\n          ---------------------------");
+    printf("\nI.");
+    printf("\n      %c This program generates cards at random.", '*');
+    printf("\n      %c If you keep losing, you are very unlucky!\n", '*');
+
+    printf("\nII.");
+    printf("\n     Each card has a value.");
+    printf("\n      %c Number cards 1 to 10 hold a value of their number.", '*');
+    printf("\n      %c J, Q, and K cards hold a value of 10.", '*');
+    printf("\n      %c Ace cards hold a value of 11", '*');
+    printf("\n     The goal of this game is to reach a card value total of 21 or having a Blackjack.\n");
+    printf("\n     Blackjack is when you have an Ace card with a 10-value card. And Blackjack is strongest couple you could have.\n");
+
+    printf("\nIII.");
+    printf("\n     After the dealing of the first two cards, YOU must decide whether to HIT or STAY.");
+    printf("\n      %c Staying will keep you safe, hitting will add a card.", '*');
+    printf("\n     Because you are competing against the dealer, you must beat his hand.");
+    printf("\n     When you lose?");
+    printf("\n      %c If your total goes over 21 (known as \"busts\"), and dealer is not, you will LOSE!.", '*');
+    printf("\n      %c If your total is smaller than dealer's, you will LOSE!.", '*');
+    printf("\n      %c If dealer have Blackjack, and you do not, you will LOSE!.", '*');
+    printf("\n      %c If you LOSE, you will lose your wager.", '*');
+    printf("\n");
+    printf("\n     When you win?");
+    printf("\n      %c If dealer busts, and you do not, you will WIN!.", '*');
+    printf("\n      %c If your total is bigger than dealer's, you will WIN!.", '*');
+    printf("\n      %c If you have Blackjack, and dealer does not, you will WIN!.", '*');
+    printf("\n      %c If you WIN, your wager will be doubled.", '*');
+    printf("\n");
+    printf("\n     When you have push?");
+    printf("\n      %c If your total is equal to dealer's, you will have PUSH!.", '*');
+    printf("\n      %c If both you and dealer bust, you will have PUSH!.", '*');
+    printf("\n      %c If you have Blackjack, and dealer does too, you will have PUSH!.", '*');
+    printf("\n      %c If you have PUSH, your wager will be return.", '*');
+    printf("\n");
+    printf("\n     After a play, and if you still have enough money, you can always play again.\n\n");
 }
 

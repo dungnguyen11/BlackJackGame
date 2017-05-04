@@ -35,4 +35,9 @@ char askPlayAgain(struct playerInfo *player);
 
 void clear();
 
+int displayAskMenu();
+
+void displayRules();
+
+
 #endif //BLACKJACKGAME_BLACKJACK_H

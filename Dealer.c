@@ -45,7 +45,7 @@ void dealerGetSecondCard(struct dealerInfo *dealer, int *deck) {
 
 void dealerGetNextCard(struct dealerInfo *dealer, int *deck, int countCardDealer) {
 
-    int card = getCardAndDisp(deck);
+    int card = getCard(deck);
 
     switch (countCardDealer) {
         case 3:
@@ -61,7 +61,7 @@ void dealerGetNextCard(struct dealerInfo *dealer, int *deck, int countCardDealer
             dealer->fifthCard = card;
             break;
     }
-
+    displayCard(card);
 }
 
 void adjustValueOfCardDealer(struct dealerInfo *dealer) {

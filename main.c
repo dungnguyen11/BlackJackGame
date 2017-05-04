@@ -20,54 +20,47 @@ int main() {
 
     displayTitle(); //Display title
     askMoneyPlayer(player1); //Get player money
+    printf("\n\tPLAYER TOTAL MONEY: %d\n\n", getTotalMoney(player1));
+    //Loop for menu
+    while (1) {
 
-    //TODO: Check if function of player and dealer is correctly split
-    char playAgain = 'y';
 
-    while (playAgain == 'y') {
-        srand(time(NULL));
-        memset(deck, 0, sizeof(deck)); //Set all value in deck to 0s for new play
+        int menuChoice = 0;
+        menuChoice = displayAskMenu();
 
-        setPlayerForNewGame(player1); //Have to set value of cards to 0 every play
-        setDealerForNewGame(dealer1); //Have to set value of cards to 0 every play
+        if (menuChoice == 1) {
 
-        printf("\n\tPLAYER TOTAL MONEY: $%d\n", getTotalMoney(player1));
+            char playAgain = 'y';
 
-        askBetMoney(player1); //Ask player for the amount of bet money
+            if (getTotalMoney(player1) == 0) {
+                printf("You do not have enough money to play. Please come back later.\n\n");
+            } else {
+                //Loop for playing
+                while (playAgain == 'y' && getTotalMoney(player1) != 0) {
+                    srand(time(NULL));
+                    memset(deck, 0, sizeof(deck)); //Set all value in deck to 0s for new play
 
-        play(player1, dealer1, deck);
+                    setPlayerForNewGame(player1); //Have to set value of cards to 0 every play
+                    setDealerForNewGame(dealer1); //Have to set value of cards to 0 every play
 
-        //Testing
-//        printf("Player: %d %d\n", player1->firstCard, player1->secondCard);
-//        printf("Dealer: %d %d\n", dealer1->firstCard, dealer1->secondCard);
-//        int length = sizeof(deck) / sizeof(int);
-//        for (int i = 0; i < length; ++i) {
-//            printf("Array %d : %d\n", i, deck[i]);
-//        }
+                    printf("\n\n\tPLAYER TOTAL MONEY: $%d\n", getTotalMoney(player1));
 
-        //Ask player if he/she want to play more
-        playAgain = askPlayAgain(player1); //askPlayAgain function returns char 'y' or 'n'
+                    askBetMoney(player1); //Ask player for the amount of bet money
+
+                    play(player1, dealer1, deck);
+
+                    //Ask player if he/she want to play more
+                    playAgain = askPlayAgain(player1); //askPlayAgain function returns char 'y' or 'n'
+                }
+            }
+        } else if (menuChoice == 2) {
+            displayRules();
+        } else {
+            break;
+        }
     }
 
-        //Testing
-//    struct playerInfo *player = createPlayer();
-//    player->firstCard = 5;
-//    player->secondCard = 10;
-//    player->thirdCard = 7;
-//
-//    printf("\nBust Player: %d\n", isPlayerBust(player));
-//
-//    struct dealerInfo *dealer = createDealer();
-//    dealer->firstCard = 10;
-//    dealer->secondCard = 5;
-//    dealer->thirdCard = 7;
-//
-//    printf("\nBust dealer: %d\n", isDealerBust(dealer));
-//
-//    printWinner(player, dealer);
-
-
-
+    printf("\n\tTHANK YOU! WE HOPE TO SEE YOU SOON!\n\t\tHAVE A GOOD DAY!\n");
 
 
 }

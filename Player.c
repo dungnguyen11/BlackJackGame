@@ -53,7 +53,7 @@ int askBetMoney(struct playerInfo *player) {
 
     while (money > getTotalMoney(player)) { //Do not let player bet if the amount of bet is larger than total money
         if (money > getTotalMoney(player)) {
-            printf("\nYou do not have enough money!Please pick a smaller bet\n");
+            printf("\nYou do not have enough money! Please pick a smaller bet.\n");
             clear();
             scanf("%d", &money);
         }
@@ -91,7 +91,6 @@ void playerGetSecondCard(struct playerInfo *player, int *deck) {
 
 
 void playerGetNextCard(struct playerInfo *player, int *deck, int countCardPlayer) {
-
     int card = getCardAndDisp(deck); //Get random card, display it and assign it to card variable
 
     //Check which card it is (third? fourth? or fifth?)
