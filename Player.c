@@ -9,7 +9,8 @@ struct playerInfo *createPlayer() {
     if (player == NULL) {
         return NULL;
     }
-    player->playerMoney = 0;
+    player->totalMoney = 0;
+    player->betMoney = 0;
     player->firstCard = 0;
     player->secondCard = 0;
     player->thirdCard = 0;
@@ -20,6 +21,54 @@ struct playerInfo *createPlayer() {
 
 void freePlayer(struct playerInfo *player) {
     free(player);
+}
+
+void askMoneyPlayer(struct playerInfo *player) {
+    int money;
+    printf("We hope you have a lucky day!\n");
+    printf("Before you start, we would like to ask you a question: \n");
+    printf("How much money do you want to play today?\n");
+
+    while (scanf("%d", &money) != 1) {
+        printf("Please enter your money.\n");
+        scanf("%*s");
+    }
+
+    player->totalMoney = money;
+//    printf("Your total money: $%i\n", getTotalMoney(player));
+}
+
+int getTotalMoney(struct playerInfo *player) {
+    return player->totalMoney;
+}
+
+int askBetMoney(struct playerInfo *player) {
+    int money = 0;
+    printf("How much do you want to bet?\n");
+
+    while (scanf("%d", &money) != 1) {
+        printf("Please enter your money.\n");
+        scanf("%*s");
+    }
+
+    while (money > getTotalMoney(player)) { //Do not let player bet if the amount of bet is larger than total money
+        if (money > getTotalMoney(player)) {
+            printf("\nYou do not have enough money!Please pick a smaller bet\n");
+            clear();
+            scanf("%d", &money);
+        }
+    }
+
+    player->betMoney = money;
+    printf("Your wager: $%d\n", getBetMoney(player));
+}
+
+int getBetMoney(struct playerInfo *player) {
+    return player->betMoney;
+}
+
+void setTotalMoney(int newMoney, struct playerInfo *player) {
+    player->totalMoney = newMoney;
 }
 
 void setPlayerForNewGame(struct playerInfo *player) {
@@ -48,16 +97,16 @@ void playerGetNextCard(struct playerInfo *player, int *deck, int countCardPlayer
     //Check which card it is (third? fourth? or fifth?)
     switch (countCardPlayer) {
         case 3:
+            printf("\nPLAYER THIRD CARD: \n");
             player->thirdCard = card;
-//            countCardPlayer++;
             break;
         case 4:
+            printf("\nPLAYER THIRD CARD: \n");
             player->fourthCard = card;
-//            countCardPlayer++;
             break;
         case 5:
+            printf("\nPLAYER FIFTH CARD: \n");
             player->fifthCard = card;
-//            countCardPlayer++;
             break;
     }
 }
@@ -100,16 +149,10 @@ int getPointPlayer(struct playerInfo *player) {
 
 void getPointAndDispPlayer(struct playerInfo *player) {
     int playerTotalPoint = getPointPlayer(player);
-    printf("TOTAL PLAYER POINT: %d\n\n", playerTotalPoint); //Get and display player total point
+    printf("\tTOTAL PLAYER POINT: %d\n", playerTotalPoint); //Get and display player total point
 }
 
-int getPlayerMoney(struct playerInfo *player) {
-    return player->playerMoney;
-}
 
-void setPlayerMoney(int newMoney, struct playerInfo *player) {
-    player->playerMoney = newMoney;
-}
 
 int isPlayerBlackJack(struct playerInfo *player) {
     int ace = 11, ten = 10, jack = 12, queen = 13, king = 14;

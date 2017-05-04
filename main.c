@@ -19,7 +19,7 @@ int main() {
     struct dealerInfo *dealer1 = createDealer();
 
     displayTitle(); //Display title
-//    askMoneyPlayer(player1); //Get player money
+    askMoneyPlayer(player1); //Get player money
 
     //TODO: Check if function of player and dealer is correctly split
     char playAgain = 'y';
@@ -28,6 +28,12 @@ int main() {
         srand(time(NULL));
         memset(deck, 0, sizeof(deck)); //Set all value in deck to 0s for new play
 
+        setPlayerForNewGame(player1); //Have to set value of cards to 0 every play
+        setDealerForNewGame(dealer1); //Have to set value of cards to 0 every play
+
+        printf("\n\tPLAYER TOTAL MONEY: $%d\n", getTotalMoney(player1));
+
+        askBetMoney(player1); //Ask player for the amount of bet money
 
         play(player1, dealer1, deck);
 
@@ -40,7 +46,7 @@ int main() {
 //        }
 
         //Ask player if he/she want to play more
-        playAgain = askPlayAgain(); //askPlayAgain function returns char 'y' or 'n'
+        playAgain = askPlayAgain(player1); //askPlayAgain function returns char 'y' or 'n'
     }
 
         //Testing

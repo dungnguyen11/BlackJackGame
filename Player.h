@@ -7,8 +7,12 @@
 #ifndef BLACKJACKGAME_PLAYER_H
 #define BLACKJACKGAME_PLAYER_H
 
+/**
+ *
+ */
 struct playerInfo {
-    int playerMoney;
+    int totalMoney;
+    int betMoney;
     int firstCard;
     int secondCard;
     int thirdCard;
@@ -16,11 +20,23 @@ struct playerInfo {
     int fifthCard;
 };
 
+
 struct playerInfo *createPlayer();
+
 
 void freePlayer(struct playerInfo *player);
 
+void askMoneyPlayer(struct playerInfo *player);
+
+int getTotalMoney(struct playerInfo *player);
+
+void setTotalMoney(int newMoney, struct playerInfo *player);
+
 void setPlayerForNewGame(struct playerInfo *player);
+
+int askBetMoney(struct playerInfo *player);
+
+int getBetMoney(struct playerInfo *player);
 
 void playerGetFirstCard(struct playerInfo *player, int *deck);
 
@@ -33,10 +49,6 @@ void adjustValueOfCardPlayer(struct playerInfo *player);
 int getPointPlayer(struct playerInfo *player);
 
 void getPointAndDispPlayer(struct playerInfo *player);
-
-int getPlayerMoney(struct playerInfo *player);
-
-void setPlayerMoney(int newMoney, struct playerInfo *player);
 
 int isPlayerBlackJack(struct playerInfo *player);
 

@@ -49,16 +49,16 @@ void dealerGetNextCard(struct dealerInfo *dealer, int *deck, int countCardDealer
 
     switch (countCardDealer) {
         case 3:
+            printf("\nDEALER THIRD CARD: \n");
             dealer->thirdCard = card;
-//            countCardDealer++;
             break;
         case 4:
+            printf("\nDEALER FOURTH CARD: \n");
             dealer->fourthCard = card;
-//            countCardDealer++;
             break;
         case 5:
+            printf("\nDEALER FIFTH CARD: \n");
             dealer->fifthCard = card;
-//            countCardDealer++;
             break;
     }
 
@@ -104,7 +104,7 @@ int getPointDealer(struct dealerInfo *dealer) {
 
 void getPointAndDispDealer(struct dealerInfo *dealer) {
     int dealerTotalPoint = getPointDealer(dealer);
-    printf("TOTAL DEALER POINT: %d\n\n", dealerTotalPoint);
+    printf("\tTOTAL DEALER POINT: %d\n", dealerTotalPoint);
 }
 
 int isDealerBlackJack(struct dealerInfo *dealer) {
@@ -131,4 +131,11 @@ int isDealerBust(struct dealerInfo *dealer) {
         return 1;
     }
     return 0;
+}
+
+int isDealerBustAndDisp(struct dealerInfo *dealer) {
+    getPointAndDispDealer(dealer);
+    if (getPointDealer(dealer) > 21) {
+        printf("\n\t----DEALER BUSTS!----\n");
+    }
 }

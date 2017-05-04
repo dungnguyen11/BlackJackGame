@@ -12,102 +12,77 @@
 #include <stdlib.h>
 
 
-//TODO: implement set new deck in here, having error now
-void setNewDeck(int *deck) {
-    //Set new deck for new game, set all element to 0
-    memset(deck, 0, sizeof(deck) * 1);
-}
 
 void displayTitle() {
+    printf("      222          11\n");
+    printf("    222 222      11111\n");
+    printf("  222    222    11 111\n");
+    printf(" 222     222   11  111\n");
+    printf(" 222     222  11   111\n");
+    printf("        222        111\n");
+    printf("       222         111\n");
+    printf("      222          111\n");
+    printf("     222           111\n");
+    printf("    222            111\n");
+    printf("   222             111\n");
+    printf("  222              111\n");
+    printf(" 222               111\n");
+    printf(" 2222222222    11111111111\n");
+    printf(" 2222222222    11111111111\n");
+
     printf("\n\t\tWELCOME TO BLACKJACK GAME!\n\n");
 }
 
-void askMoneyPlayer(struct playerInfo *player) {
-    int money;
-    printf("We hope you have a lucky day!\n");
-    printf("Before you start, we would like to ask you some question: \n");
-    printf("How much money do you want to play today?\n");
 
-    while (scanf("%d", &money) != 1) {
-        printf("Please enter your money.\n");
-        scanf("%*s");
-    }
-
-    player->playerMoney = money;
-    printf("Your total money: $%i\n", getPlayerMoney(player));
-}
 
 void play(struct playerInfo *player, struct dealerInfo *dealer, int *deck) {
     int countCardPlayer = 3; //Variable is to count if player get third/fourth/fifth card
     int countCardDealer = 3; //Variable is to count if dealer get third/fourth/fifth card
 
-    setPlayerForNewGame(player); //Have to set value of cards to 0 every play
-    setDealerForNewGame(dealer); //Have to set value of cards to 0 every play
-
     initCards(player, dealer, deck); //Get 2 cards of player and 1 card of dealer
-
 
     char hitStand = 'h'; //Initialize hitStand to 'h' to run the while loop
 
     //When player is not blackjack, ask for hit or stand
     if (!isPlayerBlackJack(player)) {
         while (hitStand == 'h' && countCardPlayer <= 5) {
+            //Ask player to hit or stand
             hitStand = askHitOrStand(player);
-            printf("Answer: %c\n", hitStand); //Testing
-            //TODO: Implement this
+
+            //If player choose Hit, pick next cards
             if (hitStand == 'h') {
-                if (countCardPlayer == 3) {
-                    printf("\nPLAYER THIRD CARD: \n");
-                } else if (countCardPlayer == 4) {
-                    printf("\nPLAYER THIRD CARD: \n");
-                } else if (countCardPlayer == 5) {
-                    printf("\nPLAYER FIFTH CARD: \n");
-                }
                 playerGetNextCard(player, deck, countCardPlayer);
                 countCardPlayer++;
-                printf("Player: %d %d %d %d %d\n", player->firstCard, player->secondCard, player->thirdCard, player->fourthCard, player->fifthCard);
                 getPointAndDispPlayer(player);
             }
 
-            //Not let player hit another card if he/she busts
-            if (getPointPlayer(player) > 21) {
-                printf("\n\tPLAYERBUST!\n");
+            //Do not let player hit another card if he/she busts
+            if (isPlayerBust(player)) {
+                printf("\n\t----PLAYER BUSTS!----\n");
                 hitStand = 's';
             }
         }
     }
 
     //Dealer get second card after player get enough cards
+    printf("\nNow is dealer's turn: \n");
     sleep(1); //sleep to get different random card
     printf("\nDEALER SECOND CARD: \n");
     dealerGetSecondCard(dealer, deck);
 
     if (isDealerBlackJack(dealer)) { //If dealer get blackjack, display text say so, and find winner directly
-        printf("\nBLACKJACK\n");
+        printf("\n\t-----BLACKJACK----\n");
     } else {
-        //Dealer have to hit another card if his total is smaller than 17
-        while (getPointDealer(dealer) < 17 && countCardDealer <= 5) {
-            if (countCardDealer == 3) {
-                printf("\nDEALER THIRD CARD: \n");
-            } else if (countCardDealer == 4) {
-                printf("\nDEALER THIRD CARD: \n");
-            } else if (countCardDealer == 5) {
-                printf("\nDEALER FIFTH CARD: \n");
-            }
+        while (getPointDealer(dealer) <= 17 &&
+               countCardDealer <= 5) {//Dealer have to hit another card if his total is smaller than 17
             sleep(1);
             dealerGetNextCard(dealer, deck, countCardDealer);
             countCardDealer++;
         }
 
-        if (getPointDealer(dealer) > 21) { //Display bust if total of dealer is greater than 21
-            printf("\n\tDEALER BUST!");
-            getPointAndDispDealer(dealer);
-        } else {
-            getPointAndDispDealer(dealer); //Display total point after hit enough cards, and not bust
-        }
+        isDealerBustAndDisp(dealer); //Display total point and bust message if have of dealer
     }
 
-    //TODO: Error when print out result, do not process next
     printWinner(player, dealer);
 
 }
@@ -120,13 +95,14 @@ void initCards(struct playerInfo *player, struct dealerInfo *dealer, int *deck) 
     sleep(1); //sleep to get different random card
     printf("PLAYER FIRST CARD: \n");
     playerGetFirstCard(player, deck); //Player get first card
+
     sleep(1);//sleep to get different random card
     printf("PLAYER SECOND CARD: \n");
     playerGetSecondCard(player, deck); //Player get second card
 
     //Check if player got Blackjack, check before change value in getPointPlayer
     if (isPlayerBlackJack(player)) {
-        printf("\nBLACKJACK!\n\n");
+        printf("\n\t----BLACKJACK!----\n");
     } else {
         getPointAndDispPlayer(player); //Get and display player total point
     }
@@ -135,7 +111,6 @@ void initCards(struct playerInfo *player, struct dealerInfo *dealer, int *deck) 
     sleep(1);  //sleep to get different random card
     printf("DEALER FIRST CARD: \n");
     dealerGetFirstCard(dealer, deck); //Dealer get first card
-    int dealerTotalPoint = getPointDealer(dealer);
     getPointAndDispDealer(dealer);
 }
 
@@ -213,7 +188,7 @@ char askHitOrStand(struct playerInfo *player) {
     char answer;
     int check = 1;
     while (check) {
-        if (answer != '\n') { //Do not need to ask for hit or stand for blackjack cards
+        if (answer != '\n') {
             printf("Do you want to hit(h) or stand(s)?\n");
             scanf("%s", &answer);
             if (answer == 'h' || answer == 's') {
@@ -226,7 +201,6 @@ char askHitOrStand(struct playerInfo *player) {
     }
 }
 
-//TODO:this function is incorrectly, fix it
 int isPlayerWin(struct playerInfo *player, struct dealerInfo *dealer) {
     if (((getPointPlayer(player) > getPointDealer(dealer)) && isPlayerBust(player) == 0) || //Player is higher than Dealer
         ((isPlayerBust(player) == 0) && (isDealerBust(dealer) == 1)) || //Dealer busts
@@ -253,36 +227,51 @@ int isPlayerWin(struct playerInfo *player, struct dealerInfo *dealer) {
 }
 
 void printWinner(struct playerInfo *player, struct dealerInfo *dealer) {
-    //TODO: add blackjack case in here
+    int newMoney = 0;
     if (isPlayerWin(player, dealer) == 1) { //Player win
-        printf("\n\tYOU WIN!\n Your wager is doubled!\n");
+        printf("\n\t-->>YOU WIN!<<--\n Your wager is doubled!\n");
+        newMoney = getBetMoney(player) * 2 + getTotalMoney(player); //if win, double the bet and add to totalMoney
     } else if (isPlayerWin(player, dealer) == 0) { //Player lose
-        printf("\n\tYOU LOSE!\n You lose your wager. Good luck next time!\n");
+        printf("\n\t-->>YOU LOSE!<<--\n You lose your wager. Good luck next time!\n");
+        newMoney = getTotalMoney(player) - getBetMoney(player); //if lose, total money subtract the bet
     } else if (isPlayerWin(player, dealer) == 2) { //Push
-        printf("\n\tPUSH! NO WINNER.\n You will get your wager back.\n");
+        printf("\n\t-->>PUSH! NO WINNER.<<--\n You will get your wager back.\n");
+        newMoney = getTotalMoney(player); //if push, do not change the total money
     } else {
         printf("This is exception. Fix this!");
     }
+    printf("PLAYER TOTAL MONEY: $%d\n\n", newMoney);
+    setTotalMoney(newMoney, player); //Change the value of total money
 }
 
-char askPlayAgain() {
-    char answer;
+char askPlayAgain(struct playerInfo *player) {
+    char answer = 0;
     int playAgain = 1;
-    while (playAgain) {
-        if (answer != '\n') { //omit when player type answer + Enter, because it also count '\n'
-            continue;
-        }
 
-        printf("Do you want to play again?(y/n)\n");
-        scanf("%c", &answer);
+    //Check if player have enough money to continue playing
+    if (getTotalMoney(player) == 0) {
+        printf("You do not have enough money to continue playing.\n");
+        answer = 'n';
+        return answer;
+    } else {
+        while (playAgain) {
 
-        if (answer == 'y') {
-            break; //Continue playing, break out the while loop
-        } else if (answer == 'n') {
-            printf("\tTHANKS FOR PLAYING!\n\tHAVE A GOOD DAY!\n");
-            playAgain = 0; //Change playAgain value to end while loop
+            clear(); //Clear input of user
+            printf("Do you want to play again?(y/n)\n");
+            scanf("%c", &answer);
+
+            if (answer == 'y') {
+                break; //Continue playing, break out the while loop
+            } else if (answer == 'n') {
+                printf("\tTHANKS FOR PLAYING!\n\tHAVE A GOOD DAY!\n");
+                playAgain = 0; //Change playAgain value to end while loop
+            }
         }
     }
     return answer;
+}
+
+void clear() {
+    while (getchar() != '\n');
 }
 
