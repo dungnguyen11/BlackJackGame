@@ -5,7 +5,7 @@
 #include "Dealer.h"
 
 struct dealerInfo *createDealer() {
-    struct dealerInfo *dealer = malloc(sizeof(struct dealerInfo));
+    struct dealerInfo *dealer = (struct dealerInfo *) malloc(sizeof(struct dealerInfo));
     if (dealer == NULL) {
         return NULL;
     }

@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <memory.h>
+#include <ctype.h>
 #include "blackjack.h"
 #include "blackjack.c"
 #include "Player.h"
@@ -23,8 +24,6 @@ int main() {
     printf("\n\tPLAYER TOTAL MONEY: %d\n\n", getTotalMoney(player1));
     //Loop for menu
     while (1) {
-
-
         int menuChoice = 0;
         menuChoice = displayAskMenu();
 
@@ -36,7 +35,7 @@ int main() {
                 printf("You do not have enough money to play. Please come back later.\n\n");
             } else {
                 //Loop for playing
-                while (playAgain == 'y' && getTotalMoney(player1) != 0) {
+                while ((tolower(playAgain) == 'y') && getTotalMoney(player1) != 0) {
                     srand(time(NULL));
                     memset(deck, 0, sizeof(deck)); //Set all value in deck to 0s for new play
 
@@ -50,7 +49,12 @@ int main() {
                     play(player1, dealer1, deck);
 
                     //Ask player if he/she want to play more
-                    playAgain = askPlayAgain(player1); //askPlayAgain function returns char 'y' or 'n'
+                    if (getTotalMoney(player1) == 0) { //Check if player have enough money to continue playing
+                        printf("You do not have enough money to continue playing.\n\n");
+                        playAgain = 'n';
+                    } else {
+                        playAgain = askPlayAgain(player1); //askPlayAgain function returns char 'y' or 'n'
+                    }
                 }
             }
         } else if (menuChoice == 2) {
@@ -59,6 +63,10 @@ int main() {
             break;
         }
     }
+
+    //Free allocated memory
+    freePlayer(player1);
+    freeDealer(dealer1);
 
     printf("\n\tTHANK YOU! WE HOPE TO SEE YOU SOON!\n\t\tHAVE A GOOD DAY!\n");
 

@@ -5,7 +5,7 @@
 #include "Player.h"
 
 struct playerInfo *createPlayer() {
-    struct playerInfo *player = malloc(sizeof(struct playerInfo));
+    struct playerInfo *player = (struct playerInfo *) malloc(sizeof(struct playerInfo));
     if (player == NULL) {
         return NULL;
     }
@@ -32,6 +32,13 @@ void askMoneyPlayer(struct playerInfo *player) {
     while (scanf("%d", &money) != 1) {
         printf("Please enter your money.\n");
         scanf("%*s");
+    }
+
+    while (money < 0) {
+        printf("The amount of money should not be negative.\nPlease enter another amount of money.\n");
+        clear();
+        scanf("%d", &money);
+
     }
 
     player->totalMoney = money;
@@ -91,7 +98,7 @@ void playerGetSecondCard(struct playerInfo *player, int *deck) {
 
 
 void playerGetNextCard(struct playerInfo *player, int *deck, int countCardPlayer) {
-    int card = getCardAndDisp(deck); //Get random card, display it and assign it to card variable
+    int card = getCard(deck); //Get random card, display it and assign it to card variable
 
     //Check which card it is (third? fourth? or fifth?)
     switch (countCardPlayer) {
@@ -108,6 +115,7 @@ void playerGetNextCard(struct playerInfo *player, int *deck, int countCardPlayer
             player->fifthCard = card;
             break;
     }
+    displayCard(card);
 }
 
 void adjustValueOfCardPlayer(struct playerInfo *player) {

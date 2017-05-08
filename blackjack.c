@@ -12,7 +12,6 @@
 #include <stdlib.h>
 
 
-
 void displayTitle() {
     printf("      222          11\n");
     printf("    222 222      11111\n");
@@ -34,7 +33,6 @@ void displayTitle() {
 }
 
 
-
 void play(struct playerInfo *player, struct dealerInfo *dealer, int *deck) {
     int countCardPlayer = 3; //Variable is to count if player get third/fourth/fifth card
     int countCardDealer = 3; //Variable is to count if dealer get third/fourth/fifth card
@@ -45,12 +43,12 @@ void play(struct playerInfo *player, struct dealerInfo *dealer, int *deck) {
 
     //When player is not blackjack, ask for hit or stand
     if (!isPlayerBlackJack(player)) {
-        while (hitStand == 'h' && countCardPlayer <= 5) {
+        while (tolower(hitStand) == 'h' && countCardPlayer <= 5) {
             //Ask player to hit or stand
             hitStand = askHitOrStand(player);
 
             //If player choose Hit, pick next cards
-            if (hitStand == 'h') {
+            if (tolower(hitStand) == 'h') {
                 sleep(1);
                 playerGetNextCard(player, deck, countCardPlayer);
                 countCardPlayer++;
@@ -192,7 +190,7 @@ char askHitOrStand(struct playerInfo *player) {
         if (answer != '\n') {
             printf("Do you want to hit(h) or stand(s)?\n");
             scanf("%s", &answer);
-            if (answer == 'h' || answer == 's') {
+            if ((tolower(answer) == 'h') || (tolower(answer) == 's')) {
                 return answer;
             } else {
                 printf("Please choose 'h' for Hit or 's' for Stand\n");
@@ -203,13 +201,15 @@ char askHitOrStand(struct playerInfo *player) {
 }
 
 int isPlayerWin(struct playerInfo *player, struct dealerInfo *dealer) {
-    if (((getPointPlayer(player) > getPointDealer(dealer)) && isPlayerBust(player) == 0) || //Player is higher than Dealer
+    if (((getPointPlayer(player) > getPointDealer(dealer)) && isPlayerBust(player) == 0) ||
+        //Player is higher than Dealer
         ((isPlayerBust(player) == 0) && (isDealerBust(dealer) == 1)) || //Dealer busts
         ((isPlayerBlackJack(player) == 1) && (isDealerBlackJack(dealer) == 0))) { //Player get blackjack
 
         return 1; //For win
 
-    } else if (((getPointPlayer(player) < getPointDealer(dealer)) && isDealerBust(dealer) == 0) || //Player is lower than Dealer
+    } else if (((getPointPlayer(player) < getPointDealer(dealer)) && isDealerBust(dealer) == 0) ||
+               //Player is lower than Dealer
                ((isPlayerBust(player) == 1) && (isDealerBust(dealer) == 0)) || //Player busts
                (isPlayerBlackJack(player) == 0 && (isDealerBlackJack(dealer) == 1))) { //Dealer get blackjack
 
@@ -217,7 +217,8 @@ int isPlayerWin(struct playerInfo *player, struct dealerInfo *dealer) {
 
     } else if ((getPointPlayer(player) == getPointDealer(dealer)) || //Player is equal to Dealer
                ((isPlayerBust(player) == 1) && (isDealerBust(dealer) == 1)) || //Both player and dealer bust
-               ((isPlayerBlackJack(player) == 1) && (isDealerBlackJack(dealer) == 1))) { //Both player and dealer get blackjack
+               ((isPlayerBlackJack(player) == 1) &&
+                (isDealerBlackJack(dealer) == 1))) { //Both player and dealer get blackjack
 
         return 2; //For Push
 
@@ -248,25 +249,16 @@ void printWinner(struct playerInfo *player, struct dealerInfo *dealer) {
 char askPlayAgain(struct playerInfo *player) {
     char answer = 0;
     int playAgain = 1;
+    while (playAgain) {
+        clear(); //Clear input of user
+        printf("Do you want to play again?(y/n)\n");
+        scanf("%c", &answer);
 
-    //Check if player have enough money to continue playing
-    if (getTotalMoney(player) == 0) {
-        printf("You do not have enough money to continue playing.\n\n");
-        answer = 'n';
-        return answer;
-    } else {
-        while (playAgain) {
-
-            clear(); //Clear input of user
-            printf("Do you want to play again?(y/n)\n");
-            scanf("%c", &answer);
-
-            if (answer == 'y') {
-                break; //Continue playing, break out the while loop
-            } else if (answer == 'n') {
-                printf("\tTHANKS FOR PLAYING!\n\n");
-                playAgain = 0; //Change playAgain value to end while loop
-            }
+        if (tolower(answer) == 'y') {
+            break; //Continue playing, break out the while loop
+        } else if (tolower(answer) == 'n') {
+            printf("\tTHANKS FOR PLAYING!\n\n");
+            playAgain = 0; //Change playAgain value to end while loop
         }
     }
     return answer;
