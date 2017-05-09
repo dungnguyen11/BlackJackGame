@@ -5,7 +5,7 @@
 #include <memory.h>
 #include "blackjack.h"
 #include "blackjack.c"
-#include "Player.h"
+#include "Hand.h"
 //#include "Player.c"
 #include "Dealer.h"
 //#include "Dealer.c"
@@ -15,11 +15,11 @@ int main() {
     int deck[15] = {0}; //52 cards is store in an array to check every time the player or dealer get a card
 
     //Create player and dealer for new game
-    struct playerInfo *player1 = createPlayer();
-    struct dealerInfo *dealer1 = createDealer();
+    struct handInfo *player1 = createHand();
+    struct handInfo *dealer1 = createHand();
 
     displayTitle(); //Display title
-    askMoneyPlayer(player1); //Get player money
+    askMoney(player1); //Get player money
     printf("\n\tPLAYER TOTAL MONEY: %d\n\n", getTotalMoney(player1));
     //Loop for menu
     while (1) {
@@ -40,8 +40,8 @@ int main() {
                     srand(time(NULL));
                     memset(deck, 0, sizeof(deck)); //Set all value in deck to 0s for new play
 
-                    setPlayerForNewGame(player1); //Have to set value of cards to 0 every play
-                    setDealerForNewGame(dealer1); //Have to set value of cards to 0 every play
+                    setHandForNewGame(player1); //Have to set value of cards to 0 every play
+                    setHandForNewGame(dealer1); //Have to set value of cards to 0 every play
 
                     printf("\n\n\tPLAYER TOTAL MONEY: $%d\n", getTotalMoney(player1));
 
@@ -59,6 +59,16 @@ int main() {
             break;
         }
     }
+
+    //Testing
+//    struct handInfo *player = createHand();
+//    player->firstCard = 1;
+////    player->secondCard = 2;
+////    player->thirdCard = 3;
+////    player->fourthCard = 4;
+////    player->fifthCard = 5;
+//
+//    displayManyCards(player);
 
     printf("\n\tTHANK YOU! WE HOPE TO SEE YOU SOON!\n\t\tHAVE A GOOD DAY!\n");
 

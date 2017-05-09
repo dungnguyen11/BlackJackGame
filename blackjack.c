@@ -3,10 +3,10 @@
 //
 
 #include "blackjack.h"
-#include "Player.h"
-#include "Player.c"
-#include "Dealer.h"
-#include "Dealer.c"
+#include "Hand.h"
+#include "Hand.c"
+//#include "Dealer.h"
+//#include "Dealer.c"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -51,14 +51,24 @@ void play(struct playerInfo *player, struct dealerInfo *dealer, int *deck) {
 
             //If player choose Hit, pick next cards
             if (hitStand == 'h') {
+//                if (countCardPlayer == 3) {
+//                    printf("\nPLAYER THIRD CARD: \n");
+//                } else if (countCardPlayer = 4) {
+//                    printf("\nPLAYER FOURTH CARD: \n");
+//                } else {
+//                    printf("\nPLAYER FIFTH CARD: \n");
+//                }
+                printf("\nPLAYER'S CARDS: \n");
                 sleep(1);
-                playerGetNextCard(player, deck, countCardPlayer);
+                getNextCard(player, deck, countCardPlayer);
+//                getPointAndDispPlayer(player);
+                displayManyCards(player);
+                printf("\tTOTAL PLAYER POINT: %d\n", getPoint(player));
                 countCardPlayer++;
-                getPointAndDispPlayer(player);
             }
 
             //Do not let player hit another card if he/she busts
-            if (isPlayerBust(player)) {
+            if (isBust(player)) {
                 printf("\n\t----PLAYER BUSTS!----\n");
                 hitStand = 's';
             }
@@ -67,54 +77,122 @@ void play(struct playerInfo *player, struct dealerInfo *dealer, int *deck) {
 
     //Dealer get second card after player get enough cards
     printf("\nNow is dealer's turn: \n");
+    printf("\nDEALER'S CARDS: \n");
     sleep(1); //sleep to get different random card
-    printf("\nDEALER SECOND CARD: \n");
-    dealerGetSecondCard(dealer, deck);
+    getSecondCard(dealer, deck);
+    displayManyCards(dealer);
 
-    if (isDealerBlackJack(dealer)) { //If dealer get blackjack, display text say so, and find winner directly
+    if (isBlackJack(dealer)) { //If dealer get blackjack, display text say so, and find winner directly
         printf("\n\t-----BLACKJACK----\n");
     } else {
         while (getPointDealer(dealer) <= 17 &&
                countCardDealer <= 5) {//Dealer have to hit another card if his total is smaller than 17
+//            if (countCardDealer == 3) {
+//                printf("\nDEALER THIRD CARD: \n");
+//            } else if (countCardDealer = 4) {
+//                printf("\nDEALER FOURTH CARD: \n");
+//            } else {
+//                printf("\nDEALER FIFTH CARD: \n");
+//            }
+            printf("\nDEALER'S CARDS: \n");
             sleep(1);
-            dealerGetNextCard(dealer, deck, countCardDealer);
+            getNextCard(dealer, deck, countCardDealer);
             countCardDealer++;
-        }
 
-        isDealerBustAndDisp(dealer); //Display total point and bust message if have of dealer
+            //Check if the dealer bust and terminate loop if true
+            if (isBust(dealer)) {
+                printf("\n\t----DEALER BUSTS!----\n");
+                break;
+            }
+        }
     }
 
     printWinner(player, dealer);
 
 }
 
-void initCards(struct playerInfo *player, struct dealerInfo *dealer, int *deck) {
+void initCards(struct handInfo *player, struct handInfo *dealer, int *deck) {
     srand(time(NULL));
     printf("\nOk, let get started! Good luck!\n\n");
 
     //Get 2 cards of player
     sleep(1); //sleep to get different random card
-    printf("PLAYER FIRST CARD: \n");
-    playerGetFirstCard(player, deck); //Player get first card
-
+    getFirstCard(player, deck); //Player get first card
     sleep(1);//sleep to get different random card
-    printf("PLAYER SECOND CARD: \n");
-    playerGetSecondCard(player, deck); //Player get second card
+    getSecondCard(player, deck); //Player get second card
 
-    //Check if player got Blackjack, check before change value in getPointPlayer
-    if (isPlayerBlackJack(player)) {
+    //Display 2 cards of player
+    printf("PLAYER'S CARDS: \n");
+    displayManyCards(player);
+
+    //Check if player got Blackjack, check before change value in getPoint
+    if (isBlackJack(player)) {
         printf("\n\t----BLACKJACK!----\n");
     } else {
-        getPointAndDispPlayer(player); //Get and display player total point
+        printf("\n\tTOTAL PLAYER POINT: %d\n", getPoint(player));
     }
 
     //Get first card of dealer
     sleep(1);  //sleep to get different random card
+    getFirstCard(dealer, deck); //Dealer get first card
     printf("DEALER FIRST CARD: \n");
-    dealerGetFirstCard(dealer, deck); //Dealer get first card
-    getPointAndDispDealer(dealer);
+    displayManyCards(dealer);
+    printf("\n\tTOTAL DEALER POINT: %d\n", getPoint(dealer));
 }
 
+void displayManyCards(struct handInfo *hand) {
+    short numCard = 0;
+
+    //Get how many card that hand has
+    if (hand->firstCard != 0) {
+        numCard++;
+    } else if (hand->secondCard != 0) {
+        numCard++;
+    } else if (hand->thirdCard != 0) {
+        numCard++;
+    } else if (hand->fourthCard != 0) {
+        numCard++;
+    } else if (hand->fifthCard != 0) {
+        numCard++;
+    }
+
+    switch (numCard) {
+        case 1:
+            printf("--------\n");
+            printf("|%2d    |\n", hand->firstCard);
+            printf("|       |\n");
+            printf("|    %2d|\n", hand->firstCard);
+            printf("--------\n");
+            break;
+        case 2:
+            printf("-------\t   -------\n");
+            printf("|%2d    |\t |%2d    |\n", hand->firstCard, hand->secondCard);
+            printf("|       |\t |       |\n");
+            printf("|    %2d|\t |    %2d|\n", hand->firstCard, hand->secondCard);
+            printf("-------\t   --------\n");
+            break;
+        case 3:
+            printf("-------\t   -------\t  --------\n");
+            printf("|%2d    |\t |%2d    |\t |%2d    |\n", hand->firstCard, hand->secondCard, hand->thirdCard);
+            printf("|       |\t |       |\t |       |\n");
+            printf("|    %2d|\t |    %2d|\t |    %2d|\n", hand->firstCard, hand->secondCard, hand->thirdCard);
+            printf("-------\t   --------\t --------\n");
+        case 4:
+            printf("-------\t   -------\t  --------\t  ---------\n");
+            printf("|%2d    |\t |%2d    |\t |%2d    |\t |%2d    |\n", hand->firstCard, hand->secondCard, hand->thirdCard, hand->fourthCard);
+            printf("|       |\t |       |\t |       |\t |       |\n");
+            printf("|    %2d|\t |    %2d|\t |    %2d|\t |    %2d|\n", hand->firstCard, hand->secondCard, hand->thirdCard, hand->fourthCard);
+            printf("-------\t   --------\t --------\t  --------\n");
+            break;
+        case 5:
+            printf("-------\t   -------\t  --------\t  ---------\t  -------\n");
+            printf("|%2d    |\t |%2d    |\t |%2d    |\t |%2d    |\t |%2d   |\n", hand->firstCard, hand->secondCard, hand->thirdCard, hand->fourthCard, hand->fifthCard);
+            printf("|       |\t |       |\t |       |\t |       |\t |      |\n");
+            printf("|    %2d|\t |    %2d|\t |    %2d|\t |    %2d|\t |   %2d|\n", hand->firstCard, hand->secondCard, hand->thirdCard, hand->fourthCard, hand->fifthCard);
+            printf("-------\t   --------\t --------\t  --------\t   -------\n");
+            break;
+    }
+}
 
 void displayCard(int card) {
 
@@ -178,12 +256,12 @@ int getCard(int *deck) {
     }
     return card;
 }
-
-int getCardAndDisp(int *deck) {
-    int card = getCard(deck);
-    displayCard(card);
-    return card;
-}
+//
+//int getCardAndDisp(int *deck) {
+//    int card = getCard(deck);
+//    displayCard(card);
+//    return card;
+//}
 
 char askHitOrStand(struct playerInfo *player) {
     char answer;
@@ -202,7 +280,7 @@ char askHitOrStand(struct playerInfo *player) {
     }
 }
 
-int isPlayerWin(struct playerInfo *player, struct dealerInfo *dealer) {
+int isPlayerWin(struct handInfo *player, struct handInfo *dealer) {
     if (((getPointPlayer(player) > getPointDealer(dealer)) && isPlayerBust(player) == 0) || //Player is higher than Dealer
         ((isPlayerBust(player) == 0) && (isDealerBust(dealer) == 1)) || //Dealer busts
         ((isPlayerBlackJack(player) == 1) && (isDealerBlackJack(dealer) == 0))) { //Player get blackjack
@@ -318,7 +396,7 @@ void displayRules() {
     printf("\nIII.");
     printf("\n     After the dealing of the first two cards, YOU must decide whether to HIT or STAY.");
     printf("\n      %c Staying will keep you safe, hitting will add a card.", '*');
-    printf("\n     Because you are competing against the dealer, you must beat his hand.");
+    printf("\n     Because you are competing against the dealer, and dealer is also a player. You must beat his hand.");
     printf("\n     When you lose?");
     printf("\n      %c If your total goes over 21 (known as \"busts\"), and dealer is not, you will LOSE!.", '*');
     printf("\n      %c If your total is smaller than dealer's, you will LOSE!.", '*');

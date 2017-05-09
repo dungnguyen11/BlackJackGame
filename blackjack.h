@@ -2,7 +2,7 @@
 // Created by Sam on 28-Apr-17.
 //
 
-#include "Player.h"
+#include "Hand.h"
 #include "Dealer.h"
 
 #ifndef BLACKJACKGAME_BLACKJACK_H
@@ -21,7 +21,9 @@ int checkCardIfAvailable(int card, int array[]);
 
 int getCard(int *deck);
 
-int getCardAndDisp(int *deck);
+//int getCardAndDisp(int *deck);
+
+void displayManyCards(struct handInfo *hand);
 
 void displayCard(int card);
 

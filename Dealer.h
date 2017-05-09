@@ -38,4 +38,6 @@ int isDealerBlackJack(struct dealerInfo *dealer);
 
 int isDealerBust(struct dealerInfo *dealer);
 
+void isDealerBustAndDisp(struct dealerInfo *dealer);
+
 #endif //BLACKJACKGAME_DEALER_H

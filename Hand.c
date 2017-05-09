@@ -2,28 +2,30 @@
 // Created by Sam on 30-Apr-17.
 //
 
-#include "Player.h"
+#include "Hand.h"
 
-struct playerInfo *createPlayer() {
-    struct playerInfo *player = malloc(sizeof(struct playerInfo));
-    if (player == NULL) {
+struct handInfo *createHand() {
+    struct handInfo *hand = malloc(sizeof(struct handInfo));
+    if (hand == NULL) {
         return NULL;
     }
-    player->totalMoney = 0;
-    player->betMoney = 0;
-    player->firstCard = 0;
-    player->secondCard = 0;
-    player->thirdCard = 0;
-    player->fourthCard = 0;
-    player->fifthCard = 0;
-    return player;
+    hand->totalMoney = 0;
+    hand->betMoney = 0;
+    hand->firstCard = 0;
+    hand->secondCard = 0;
+    hand->thirdCard = 0;
+    hand->fourthCard = 0;
+    hand->fifthCard = 0;
+    return hand;
 }
 
-void freePlayer(struct playerInfo *player) {
+void freePlayer(struct handInfo *player) {
     free(player);
 }
 
-void askMoneyPlayer(struct playerInfo *player) {
+//For player only
+
+void askMoney(struct handInfo *player) {
     int money;
     printf("We hope you have a lucky day!\n");
     printf("Before you start, we would like to ask you a question: \n");
@@ -35,14 +37,17 @@ void askMoneyPlayer(struct playerInfo *player) {
     }
 
     player->totalMoney = money;
-//    printf("Your total money: $%i\n", getTotalMoney(player));
 }
 
-int getTotalMoney(struct playerInfo *player) {
+int getTotalMoney(struct handInfo *player) {
     return player->totalMoney;
 }
 
-int askBetMoney(struct playerInfo *player) {
+void setTotalMoney(int newMoney, struct handInfo *player) {
+    player->totalMoney = newMoney;
+}
+
+void askBetMoney(struct handInfo *player) {
     int money = 0;
     printf("How much do you want to bet?\n");
 
@@ -63,54 +68,50 @@ int askBetMoney(struct playerInfo *player) {
     printf("Your wager: $%d\n", getBetMoney(player));
 }
 
-int getBetMoney(struct playerInfo *player) {
+int getBetMoney(struct handInfo *player) {
     return player->betMoney;
 }
 
-void setTotalMoney(int newMoney, struct playerInfo *player) {
-    player->totalMoney = newMoney;
-}
+//For both player and dealer
 
-void setPlayerForNewGame(struct playerInfo *player) {
-    player->firstCard = 0;
-    player->secondCard = 0;
-    player->thirdCard = 0;
-    player->fourthCard = 0;
-    player->fifthCard = 0;
-}
-
-void playerGetFirstCard(struct playerInfo *player, int *deck) {
-    int card = getCardAndDisp(deck);
-    player->firstCard = card;
-}
-
-void playerGetSecondCard(struct playerInfo *player, int *deck) {
-    int card = getCardAndDisp(deck);
-    player->secondCard = card;
+void setHandForNewGame(struct handInfo *hand) {
+    hand->firstCard = 0;
+    hand->secondCard = 0;
+    hand->thirdCard = 0;
+    hand->fourthCard = 0;
+    hand->fifthCard = 0;
 }
 
 
-void playerGetNextCard(struct playerInfo *player, int *deck, int countCardPlayer) {
+void getFirstCard(struct handInfo *hand, int *deck) {
+    int card = getCard(deck);
+    hand->firstCard = card;
+}
+
+void getSecondCard(struct handInfo *hand, int *deck) {
+    int card = getCard(deck);
+    hand->secondCard = card;
+}
+
+
+void getNextCard(struct handInfo *hand, int *deck, int countCard) {
     int card = getCardAndDisp(deck); //Get random card, display it and assign it to card variable
 
     //Check which card it is (third? fourth? or fifth?)
-    switch (countCardPlayer) {
+    switch (countCard) {
         case 3:
-            printf("\nPLAYER THIRD CARD: \n");
-            player->thirdCard = card;
+            hand->thirdCard = card;
             break;
         case 4:
-            printf("\nPLAYER THIRD CARD: \n");
-            player->fourthCard = card;
+            hand->fourthCard = card;
             break;
         case 5:
-            printf("\nPLAYER FIFTH CARD: \n");
-            player->fifthCard = card;
+            hand->fifthCard = card;
             break;
     }
 }
 
-void adjustValueOfCardPlayer(struct playerInfo *player) {
+void adjustValueOfCardPlayer(struct handInfo *player) {
     int jack = 12, queen = 13, king = 14;
 
     //Adjust value of jack, queen and king card to value 10
@@ -136,7 +137,7 @@ void adjustValueOfCardPlayer(struct playerInfo *player) {
     }
 }
 
-int getPointPlayer(struct playerInfo *player) {
+int getPointPlayer(struct handInfo *player) {
     //Have to change value of jack, queen, king to 10 before get total point
     adjustValueOfCardPlayer(player);
 
@@ -145,15 +146,15 @@ int getPointPlayer(struct playerInfo *player) {
                 player->thirdCard + player->fourthCard + player->fifthCard;
     return total;
 }
+//
+//void getPointAndDispPlayer(struct handInfo *player) {
+//    int playerTotalPoint = getPointPlayer(player);
+//    printf("\tTOTAL PLAYER POINT: %d\n", playerTotalPoint); //Get and display player total point
+//}
 
-void getPointAndDispPlayer(struct playerInfo *player) {
-    int playerTotalPoint = getPointPlayer(player);
-    printf("\tTOTAL PLAYER POINT: %d\n", playerTotalPoint); //Get and display player total point
-}
 
 
-
-int isPlayerBlackJack(struct playerInfo *player) {
+int isPlayerBlackJack(struct handInfo *player) {
     int ace = 11, ten = 10, jack = 12, queen = 13, king = 14;
 
     //Just need to check the first card of player
@@ -172,7 +173,7 @@ int isPlayerBlackJack(struct playerInfo *player) {
     return 0;
 }
 
-int isPlayerBust(struct playerInfo *player) {
+int isPlayerBust(struct handInfo *player) {
     if (getPointPlayer(player) > 21) {
 //        printf("\n\tBUST! YOU LOSE!\n\tGood luck next time!");
         return 1;

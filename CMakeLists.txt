@@ -3,5 +3,5 @@ project(BlackjackGame)
 
 set(CMAKE_C_STANDARD 99)
 
-set(SOURCE_FILES main.c)
+set(SOURCE_FILES main.c testing.c)
 add_executable(BlackjackGame ${SOURCE_FILES})
