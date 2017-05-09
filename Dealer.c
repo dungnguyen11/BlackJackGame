@@ -133,7 +133,7 @@ int isDealerBust(struct dealerInfo *dealer) {
     return 0;
 }
 
-int isDealerBustAndDisp(struct dealerInfo *dealer) {
+void isDealerBustAndDisp(struct dealerInfo *dealer) {
     getPointAndDispDealer(dealer);
     if (getPointDealer(dealer) > 21) {
         printf("\n\t----DEALER BUSTS!----\n");

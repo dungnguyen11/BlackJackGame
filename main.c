@@ -6,7 +6,7 @@
 #include <ctype.h>
 #include "blackjack.h"
 #include "blackjack.c"
-#include "Player.h"
+#include "Hand.h"
 //#include "Player.c"
 #include "Dealer.h"
 //#include "Dealer.c"
@@ -16,12 +16,12 @@ int main() {
     int deck[15] = {0}; //52 cards is store in an array to check every time the player or dealer get a card
 
     //Create player and dealer for new game
-    struct playerInfo *player1 = createPlayer();
-    struct dealerInfo *dealer1 = createDealer();
+    struct handInfo *player1 = createHand();
+    struct handInfo *dealer1 = createHand();
 
     displayTitle(); //Display title
-    askMoneyPlayer(player1); //Get player money
-    printf("\n\tPLAYER TOTAL MONEY: %d\n\n", getTotalMoney(player1));
+    askMoney(player1); //Get player money
+    printf("\n\tPLAYER TOTAL MONEY: $%d\n\n", getTotalMoney(player1));
     //Loop for menu
     while (1) {
         int menuChoice = 0;
@@ -39,10 +39,10 @@ int main() {
                     srand(time(NULL));
                     memset(deck, 0, sizeof(deck)); //Set all value in deck to 0s for new play
 
-                    setPlayerForNewGame(player1); //Have to set value of cards to 0 every play
-                    setDealerForNewGame(dealer1); //Have to set value of cards to 0 every play
+                    setHandForNewGame(player1); //Have to set value of cards to 0 every play
+                    setHandForNewGame(dealer1); //Have to set value of cards to 0 every play
 
-                    printf("\n\n\tPLAYER TOTAL MONEY: $%d\n", getTotalMoney(player1));
+                    printf("\n\tPLAYER TOTAL MONEY: $%d\n", getTotalMoney(player1));
 
                     askBetMoney(player1); //Ask player for the amount of bet money
 
@@ -67,6 +67,27 @@ int main() {
     //Free allocated memory
     freePlayer(player1);
     freeDealer(dealer1);
+//    Testing
+//    struct handInfo *player = createHand();
+//    player->firstCard = 10;
+//    player->secondCard = 14;
+//    player->thirdCard = 5;
+//    player->fourthCard = 10;
+//    player->fifthCard = 12;
+//
+//    printf("first card: %d\n", player->firstCard);
+//    printf("second card: %d\n", player->secondCard);
+//    printf("third card: %d\n", player->thirdCard);
+//    printf("fourth card: %d\n", player->fourthCard);
+//    printf("fifth card: %d\n", player->fifthCard);
+//
+//    displayManyCards(player);
+//
+//    printf("first card: %d\n", player->firstCard);
+//    printf("second card: %d\n", player->secondCard);
+//    printf("third card: %d\n", player->thirdCard);
+//    printf("fourth card: %d\n", player->fourthCard);
+//    printf("fifth card: %d\n", player->fifthCard);
 
     printf("\n\tTHANK YOU! WE HOPE TO SEE YOU SOON!\n\t\tHAVE A GOOD DAY!\n");
 

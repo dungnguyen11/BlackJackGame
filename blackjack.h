@@ -2,7 +2,7 @@
 // Created by Sam on 28-Apr-17.
 //
 
-#include "Player.h"
+#include "Hand.h"
 #include "Dealer.h"
 
 #ifndef BLACKJACKGAME_BLACKJACK_H
@@ -13,25 +13,27 @@
  */
 void displayTitle();
 
-void play(struct playerInfo *player, struct dealerInfo *dealer, int *deck);
+void play(struct handInfo *player, struct handInfo *dealer, int *deck);
 
-void initCards(struct playerInfo *player, struct dealerInfo *dealer, int *deck);
+void initCards(struct handInfo *player, struct handInfo *dealer, int *deck);
 
 int checkCardIfAvailable(int card, int array[]);
 
 int getCard(int *deck);
 
-int getCardAndDisp(int *deck);
+//int getCardAndDisp(int *deck);
+
+void displayManyCards(struct handInfo *hand);
 
 void displayCard(int card);
 
-char askHitOrStand(struct playerInfo *player);
+char askHitOrStand(struct handInfo *player);
 
-int isPlayerWin(struct playerInfo *player, struct dealerInfo *dealer);
+int isPlayerWin(struct handInfo *player, struct handInfo *dealer);
 
-void printWinner(struct playerInfo *player, struct dealerInfo *dealer);
+void printWinner(struct handInfo *player, struct handInfo *dealer);
 
-char askPlayAgain(struct playerInfo *player);
+char askPlayAgain(struct handInfo *player);
 
 void clear();
 
