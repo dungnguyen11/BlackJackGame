@@ -1,8 +1,11 @@
 //
 // Created by Sam on 30-Apr-17.
 //
-
+#include <stdio.h>
+#include <stdlib.h>
 #include "Hand.h"
+#include "blackjack.h"
+//#include "blackjack.h"
 
 struct handInfo *createHand() {
     struct handInfo *hand = malloc(sizeof(struct handInfo));

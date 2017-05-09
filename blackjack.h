@@ -3,7 +3,6 @@
 //
 
 #include "Hand.h"
-#include "Dealer.h"
 
 #ifndef BLACKJACKGAME_BLACKJACK_H
 #define BLACKJACKGAME_BLACKJACK_H

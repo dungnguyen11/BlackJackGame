@@ -5,11 +5,8 @@
 #include <memory.h>
 #include <ctype.h>
 #include "blackjack.h"
-#include "blackjack.c"
+//#include "blackjack.c"
 #include "Hand.h"
-//#include "Player.c"
-#include "Dealer.h"
-//#include "Dealer.c"
 
 int main() {
     //Create deck pointer
@@ -65,8 +62,8 @@ int main() {
     }
 
     //Free allocated memory
-    freePlayer(player1);
-    freeDealer(dealer1);
+    freeHand(player1);
+    freeHand(dealer1);
 //    Testing
 //    struct handInfo *player = createHand();
 //    player->firstCard = 10;

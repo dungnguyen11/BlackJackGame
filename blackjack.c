@@ -2,14 +2,14 @@
 // Created by Sam on 28-Apr-17.
 //
 
-#include "blackjack.h"
-#include "Hand.h"
-#include "Hand.c"
-//#include "Dealer.h"
-//#include "Dealer.c"
-#include <stdbool.h>
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
+#include <time.h>
+#include <unistd.h>
+#include "blackjack.h"
+#include "Hand.h"
 
 
 void displayTitle() {
@@ -56,8 +56,8 @@ void play(struct handInfo *player, struct handInfo *dealer, int *deck) {
                 sleep(1);
                 getNextCard(player, deck, countCardPlayer);
                 displayManyCards(player);
-                printf("Players: %d - %d - %d - %d - %d\n", player->firstCard, player->secondCard, player->thirdCard,
-                       player->fourthCard, player->fifthCard);
+//                printf("Players: %d - %d - %d - %d - %d\n", player->firstCard, player->secondCard, player->thirdCard,
+//                       player->fourthCard, player->fifthCard);
                 printf("\n\tTOTAL PLAYER POINT: %d\n", getPoint(player));
                 countCardPlayer++;
             }
@@ -89,8 +89,8 @@ void play(struct handInfo *player, struct handInfo *dealer, int *deck) {
             sleep(1);
             getNextCard(dealer, deck, countCardDealer);
             displayManyCards(dealer);
-            printf("Dealer: %d - %d - %d - %d - %d\n", dealer->firstCard, dealer->secondCard, dealer->thirdCard,
-                   dealer->fourthCard, dealer->fifthCard);
+//            printf("Dealer: %d - %d - %d - %d - %d\n", dealer->firstCard, dealer->secondCard, dealer->thirdCard,
+//                   dealer->fourthCard, dealer->fifthCard);
             printf("\n\tTOTAL DEALER POINT: %d\n", getPoint(dealer));
             countCardDealer++;
 
@@ -180,7 +180,7 @@ void displayManyCards(struct handInfo *hand) {
     if (hand->fifthCard != 0) {
         numCard++;
     }
-    short temp1 = hand->firstCard, temp2 = hand->secondCard,
+    int temp1 = hand->firstCard, temp2 = hand->secondCard,
             temp3 = hand->thirdCard, temp4 = hand->fourthCard, temp5 = hand->fifthCard; //Variables to store value of cards
 
     switch (numCard) {
@@ -294,7 +294,7 @@ int getCard(int *deck) {
     int card = 0;
     while (checkCardIfAvailable(card, deck)) {
         srand(time(NULL));
-        card = (int) (rand() % 13 + 2); //Get random card value from 2 to 14
+        card = rand() % 13 + 2; //Get random card value from 2 to 14
         if (checkCardIfAvailable(card, deck) && card != 0) { //Check if the card is available or not
             deck[card]++;
             break;

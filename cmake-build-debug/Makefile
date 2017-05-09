@@ -122,6 +122,60 @@ BlackjackGame/fast:
 	$(MAKE) -f CMakeFiles\BlackjackGame.dir\build.make CMakeFiles/BlackjackGame.dir/build
 .PHONY : BlackjackGame/fast
 
+Hand.obj: Hand.c.obj
+
+.PHONY : Hand.obj
+
+# target to build an object file
+Hand.c.obj:
+	$(MAKE) -f CMakeFiles\BlackjackGame.dir\build.make CMakeFiles/BlackjackGame.dir/Hand.c.obj
+.PHONY : Hand.c.obj
+
+Hand.i: Hand.c.i
+
+.PHONY : Hand.i
+
+# target to preprocess a source file
+Hand.c.i:
+	$(MAKE) -f CMakeFiles\BlackjackGame.dir\build.make CMakeFiles/BlackjackGame.dir/Hand.c.i
+.PHONY : Hand.c.i
+
+Hand.s: Hand.c.s
+
+.PHONY : Hand.s
+
+# target to generate assembly for a file
+Hand.c.s:
+	$(MAKE) -f CMakeFiles\BlackjackGame.dir\build.make CMakeFiles/BlackjackGame.dir/Hand.c.s
+.PHONY : Hand.c.s
+
+blackjack.obj: blackjack.c.obj
+
+.PHONY : blackjack.obj
+
+# target to build an object file
+blackjack.c.obj:
+	$(MAKE) -f CMakeFiles\BlackjackGame.dir\build.make CMakeFiles/BlackjackGame.dir/blackjack.c.obj
+.PHONY : blackjack.c.obj
+
+blackjack.i: blackjack.c.i
+
+.PHONY : blackjack.i
+
+# target to preprocess a source file
+blackjack.c.i:
+	$(MAKE) -f CMakeFiles\BlackjackGame.dir\build.make CMakeFiles/BlackjackGame.dir/blackjack.c.i
+.PHONY : blackjack.c.i
+
+blackjack.s: blackjack.c.s
+
+.PHONY : blackjack.s
+
+# target to generate assembly for a file
+blackjack.c.s:
+	$(MAKE) -f CMakeFiles\BlackjackGame.dir\build.make CMakeFiles/BlackjackGame.dir/blackjack.c.s
+.PHONY : blackjack.c.s
+
 main.obj: main.c.obj
 
 .PHONY : main.obj
@@ -185,6 +239,12 @@ help:
 	@echo ... rebuild_cache
 	@echo ... BlackjackGame
 	@echo ... edit_cache
+	@echo ... Hand.obj
+	@echo ... Hand.i
+	@echo ... Hand.s
+	@echo ... blackjack.obj
+	@echo ... blackjack.i
+	@echo ... blackjack.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
