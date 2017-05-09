@@ -39,6 +39,7 @@ void askBetMoney(struct handInfo *player);
 
 int getBetMoney(struct handInfo *player);
 
+
 //For both player and dealer
 
 void setHandForNewGame(struct handInfo *hand);

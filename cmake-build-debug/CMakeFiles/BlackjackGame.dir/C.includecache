@@ -1,0 +1,58 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/Dealer.h
+
+D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/Hand.c
+Hand.h
+D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/Hand.h
+
+D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/Hand.h
+
+D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/blackjack.c
+blackjack.h
+D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/blackjack.h
+Hand.h
+D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/Hand.h
+Hand.c
+D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/Hand.c
+stdbool.h
+-
+stdio.h
+-
+stdlib.h
+-
+
+D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/blackjack.h
+Hand.h
+D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/Hand.h
+Dealer.h
+D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/Dealer.h
+
+D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/main.c
+stdio.h
+-
+unistd.h
+-
+stdlib.h
+-
+time.h
+-
+memory.h
+-
+blackjack.h
+D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/blackjack.h
+blackjack.c
+D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/blackjack.c
+Hand.h
+D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/Hand.h
+Dealer.h
+D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/Dealer.h
+
+D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/testing.c
+

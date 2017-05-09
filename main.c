@@ -20,7 +20,7 @@ int main() {
 
     displayTitle(); //Display title
     askMoney(player1); //Get player money
-    printf("\n\tPLAYER TOTAL MONEY: %d\n\n", getTotalMoney(player1));
+    printf("\n\tPLAYER TOTAL MONEY: $%d\n\n", getTotalMoney(player1));
     //Loop for menu
     while (1) {
 
@@ -43,7 +43,7 @@ int main() {
                     setHandForNewGame(player1); //Have to set value of cards to 0 every play
                     setHandForNewGame(dealer1); //Have to set value of cards to 0 every play
 
-                    printf("\n\n\tPLAYER TOTAL MONEY: $%d\n", getTotalMoney(player1));
+                    printf("\n\tPLAYER TOTAL MONEY: $%d\n", getTotalMoney(player1));
 
                     askBetMoney(player1); //Ask player for the amount of bet money
 
@@ -60,15 +60,27 @@ int main() {
         }
     }
 
-    //Testing
+//    Testing
 //    struct handInfo *player = createHand();
-//    player->firstCard = 1;
-////    player->secondCard = 2;
-////    player->thirdCard = 3;
-////    player->fourthCard = 4;
-////    player->fifthCard = 5;
+//    player->firstCard = 10;
+//    player->secondCard = 14;
+//    player->thirdCard = 5;
+//    player->fourthCard = 10;
+//    player->fifthCard = 12;
+//
+//    printf("first card: %d\n", player->firstCard);
+//    printf("second card: %d\n", player->secondCard);
+//    printf("third card: %d\n", player->thirdCard);
+//    printf("fourth card: %d\n", player->fourthCard);
+//    printf("fifth card: %d\n", player->fifthCard);
 //
 //    displayManyCards(player);
+//
+//    printf("first card: %d\n", player->firstCard);
+//    printf("second card: %d\n", player->secondCard);
+//    printf("third card: %d\n", player->thirdCard);
+//    printf("fourth card: %d\n", player->fourthCard);
+//    printf("fifth card: %d\n", player->fifthCard);
 
     printf("\n\tTHANK YOU! WE HOPE TO SEE YOU SOON!\n\t\tHAVE A GOOD DAY!\n");
 

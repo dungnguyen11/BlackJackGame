@@ -19,8 +19,8 @@ struct handInfo *createHand() {
     return hand;
 }
 
-void freePlayer(struct handInfo *player) {
-    free(player);
+void freeHand(struct handInfo *hand) {
+    free(hand);
 }
 
 //For player only
@@ -32,8 +32,14 @@ void askMoney(struct handInfo *player) {
     printf("How much money do you want to play today?\n");
 
     while (scanf("%d", &money) != 1) {
-        printf("Please enter your money.\n");
-        scanf("%*s");
+        printf("Your money is invalid!\nPlease enter your money.\n");
+//        scanf("%*s");
+    }
+
+    while (money < 0) {
+        printf("Your money is invalid!\nPlease enter correct money.\n");
+        clear();
+        scanf("%d", &money);
     }
 
     player->totalMoney = money;
@@ -52,16 +58,23 @@ void askBetMoney(struct handInfo *player) {
     printf("How much do you want to bet?\n");
 
     while (scanf("%d", &money) != 1) {
-        printf("Please enter your money.\n");
-        scanf("%*s");
+        clear();
+        printf("Your bet is invalid!\nPlease enter your money.\n");
+        scanf("%d", &money);
+    }
+
+    while (money < 0) {
+        printf("Your bet is invalid!\nPlease enter correct money.\n");
+        clear();
+        scanf("%d", &money);
     }
 
     while (money > getTotalMoney(player)) { //Do not let player bet if the amount of bet is larger than total money
-        if (money > getTotalMoney(player)) {
+//        if (money > getTotalMoney(player)) {
             printf("\nYou do not have enough money! Please pick a smaller bet.\n");
             clear();
             scanf("%d", &money);
-        }
+//        }
     }
 
     player->betMoney = money;
@@ -95,7 +108,7 @@ void getSecondCard(struct handInfo *hand, int *deck) {
 
 
 void getNextCard(struct handInfo *hand, int *deck, int countCard) {
-    int card = getCardAndDisp(deck); //Get random card, display it and assign it to card variable
+    int card = getCard(deck); //Get random card, display it and assign it to card variable
 
     //Check which card it is (third? fourth? or fifth?)
     switch (countCard) {
@@ -111,39 +124,39 @@ void getNextCard(struct handInfo *hand, int *deck, int countCard) {
     }
 }
 
-void adjustValueOfCardPlayer(struct handInfo *player) {
+void adjustValueOfCard(struct handInfo *hand) {
     int jack = 12, queen = 13, king = 14;
 
     //Adjust value of jack, queen and king card to value 10
     //First card
-    if (player->firstCard == jack || player->firstCard == queen || player->firstCard == king) {
-        player->firstCard = 10;
+    if (hand->firstCard == jack || hand->firstCard == queen || hand->firstCard == king) {
+        hand->firstCard = 10;
     }
     //Second card
-    if (player->secondCard == jack || player->secondCard == queen || player->secondCard == king) {
-        player->secondCard = 10;
+    if (hand->secondCard == jack || hand->secondCard == queen || hand->secondCard == king) {
+        hand->secondCard = 10;
     }
     //Third card
-    if (player->thirdCard == jack || player->thirdCard == queen || player->thirdCard == king) {
-        player->thirdCard = 10;
+    if (hand->thirdCard == jack || hand->thirdCard == queen || hand->thirdCard == king) {
+        hand->thirdCard = 10;
     }
     //Fourth card
-    if (player->fourthCard == jack || player->fourthCard == queen || player->fourthCard == king) {
-        player->fourthCard = 10;
+    if (hand->fourthCard == jack || hand->fourthCard == queen || hand->fourthCard == king) {
+        hand->fourthCard = 10;
     }
     //Fifth card
-    if (player->fifthCard == jack || player->fifthCard == queen || player->fifthCard == king) {
-        player->fifthCard = 10;
+    if (hand->fifthCard == jack || hand->fifthCard == queen || hand->fifthCard == king) {
+        hand->fifthCard = 10;
     }
 }
 
-int getPointPlayer(struct handInfo *player) {
+int getPoint(struct handInfo *hand) {
     //Have to change value of jack, queen, king to 10 before get total point
-    adjustValueOfCardPlayer(player);
+    adjustValueOfCard(hand);
 
     //After change value of jack, queen, and king, get correct total value
-    int total = player->firstCard + player->secondCard +
-                player->thirdCard + player->fourthCard + player->fifthCard;
+    int total = hand->firstCard + hand->secondCard +
+                hand->thirdCard + hand->fourthCard + hand->fifthCard;
     return total;
 }
 //
@@ -154,27 +167,27 @@ int getPointPlayer(struct handInfo *player) {
 
 
 
-int isPlayerBlackJack(struct handInfo *player) {
+int isBlackJack(struct handInfo *hand) {
     int ace = 11, ten = 10, jack = 12, queen = 13, king = 14;
 
     //Just need to check the first card of player
-    if (player->firstCard == ace) {//If the first card is Ace, check if the second card have value of 10 or not
-        if (player->secondCard == ten || player->secondCard == jack ||
-            player->secondCard == queen || player->secondCard == king) {
+    if (hand->firstCard == ace) {//If the first card is Ace, check if the second card have value of 10 or not
+        if (hand->secondCard == ten || hand->secondCard == jack ||
+            hand->secondCard == queen || hand->secondCard == king) {
             return 1;
         }
-    } else if (player->firstCard == ten || player->firstCard == jack ||
-               player->firstCard == queen ||
-               player->firstCard == king) { //If the first card have value 10, check if the second is Ace or not
-        if (player->secondCard == ace) {
+    } else if (hand->firstCard == ten || hand->firstCard == jack ||
+               hand->firstCard == queen ||
+               hand->firstCard == king) { //If the first card have value 10, check if the second is Ace or not
+        if (hand->secondCard == ace) {
             return 1;
         }
     }
     return 0;
 }
 
-int isPlayerBust(struct handInfo *player) {
-    if (getPointPlayer(player) > 21) {
+int isBust(struct handInfo *hand) {
+    if (getPoint(hand) > 21) {
 //        printf("\n\tBUST! YOU LOSE!\n\tGood luck next time!");
         return 1;
     }
