@@ -2,108 +2,103 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6"/>
 	<Project>
-		<Option title="BlackjackGame"/>
+		<Option title="BlackJackGame"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug"/>
+				<Option working_dir="/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="rebuild_cache">
-				<Option working_dir="D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="BlackjackGame">
-				<Option output="D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/BlackjackGame.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/../../../../include"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include-fixed"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/../../../../mingw32/include"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++/mingw32"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++/backward"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 BlackjackGame"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="BlackjackGame/fast">
-				<Option output="D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/BlackjackGame.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/../../../../include"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include-fixed"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/../../../../mingw32/include"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++/mingw32"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++/backward"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 BlackjackGame/fast"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug"/>
+				<Option working_dir="/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="BlackJackGame">
+				<Option output="/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/BlackJackGame" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.1.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 BlackJackGame"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="BlackJackGame/fast">
+				<Option output="/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/BlackJackGame" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.1.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 BlackJackGame/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/DungNguyen/Desktop/BlackJackGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/Dealer.h">
-			<Option target="BlackjackGame"/>
+		<Unit filename="/Users/DungNguyen/Desktop/BlackJackGame/Hand.c">
+			<Option target="BlackJackGame"/>
 		</Unit>
-		<Unit filename="D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/Hand.c">
-			<Option target="BlackjackGame"/>
+		<Unit filename="/Users/DungNguyen/Desktop/BlackJackGame/Hand.h">
+			<Option target="BlackJackGame"/>
 		</Unit>
-		<Unit filename="D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/Hand.h">
-			<Option target="BlackjackGame"/>
+		<Unit filename="/Users/DungNguyen/Desktop/BlackJackGame/blackjack.c">
+			<Option target="BlackJackGame"/>
 		</Unit>
-		<Unit filename="D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/blackjack.c">
-			<Option target="BlackjackGame"/>
+		<Unit filename="/Users/DungNguyen/Desktop/BlackJackGame/blackjack.h">
+			<Option target="BlackJackGame"/>
 		</Unit>
-		<Unit filename="D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/blackjack.h">
-			<Option target="BlackjackGame"/>
+		<Unit filename="/Users/DungNguyen/Desktop/BlackJackGame/main.c">
+			<Option target="BlackJackGame"/>
 		</Unit>
-		<Unit filename="D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/main.c">
-			<Option target="BlackjackGame"/>
+		<Unit filename="/Users/DungNguyen/Desktop/BlackJackGame/testing.c">
+			<Option target="BlackJackGame"/>
 		</Unit>
-		<Unit filename="D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/testing.c">
-			<Option target="BlackjackGame"/>
-		</Unit>
-		<Unit filename="D:/Google Drive/RMIT/2017-Sem 1/Programming Techniques/BlackjackGame/CMakeLists.txt">
+		<Unit filename="/Users/DungNguyen/Desktop/BlackJackGame/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

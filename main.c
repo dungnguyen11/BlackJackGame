@@ -7,6 +7,7 @@
 #include "blackjack.h"
 //#include "blackjack.c"
 #include "Hand.h"
+//#include "Hand.c"
 
 int main() {
     //Create deck pointer
@@ -25,16 +26,13 @@ int main() {
         menuChoice = displayAskMenu();
 
         if (menuChoice == 1) {
-
             char playAgain = 'y';
-
             if (getTotalMoney(player1) == 0) {
                 printf("You do not have enough money to play. Please come back later.\n\n");
             } else {
                 //Loop for playing
                 while ((tolower(playAgain) == 'y') && getTotalMoney(player1) != 0) {
                     srand(time(NULL));
-                    memset(deck, 0, sizeof(deck)); //Set all value in deck to 0s for new play
 
                     setHandForNewGame(player1); //Have to set value of cards to 0 every play
                     setHandForNewGame(dealer1); //Have to set value of cards to 0 every play
@@ -56,6 +54,8 @@ int main() {
             }
         } else if (menuChoice == 2) {
             displayRules();
+        } else if (menuChoice == 3) {
+            displayCredits();
         } else {
             break;
         }
@@ -64,29 +64,6 @@ int main() {
     //Free allocated memory
     freeHand(player1);
     freeHand(dealer1);
-//    Testing
-//    struct handInfo *player = createHand();
-//    player->firstCard = 10;
-//    player->secondCard = 14;
-//    player->thirdCard = 5;
-//    player->fourthCard = 10;
-//    player->fifthCard = 12;
-//
-//    printf("first card: %d\n", player->firstCard);
-//    printf("second card: %d\n", player->secondCard);
-//    printf("third card: %d\n", player->thirdCard);
-//    printf("fourth card: %d\n", player->fourthCard);
-//    printf("fifth card: %d\n", player->fifthCard);
-//
-//    displayManyCards(player);
-//
-//    printf("first card: %d\n", player->firstCard);
-//    printf("second card: %d\n", player->secondCard);
-//    printf("third card: %d\n", player->thirdCard);
-//    printf("fourth card: %d\n", player->fourthCard);
-//    printf("fifth card: %d\n", player->fifthCard);
 
     printf("\n\tTHANK YOU! WE HOPE TO SEE YOU SOON!\n\t\tHAVE A GOOD DAY!\n");
-
-
 }

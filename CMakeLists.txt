@@ -1,15 +1,14 @@
 cmake_minimum_required(VERSION 3.6)
-project(BlackjackGame)
+project(BlackJackGame)
 
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
         blackjack.c
         blackjack.h
-        Dealer.h
         Hand.c
         Hand.h
         main.c
         testing.c)
 
-add_executable(BlackjackGame ${SOURCE_FILES})
+add_executable(BlackJackGame ${SOURCE_FILES})

@@ -36,7 +36,6 @@ void askMoney(struct handInfo *player) {
 
     while (scanf("%d", &money) != 1) {
         printf("Your money is invalid!\nPlease enter your money.\n");
-//        scanf("%*s");
     }
 
     while (money < 0) {
@@ -63,7 +62,7 @@ void askBetMoney(struct handInfo *player) {
     while (scanf("%d", &money) != 1) {
         clear();
         printf("Your bet is invalid!\nPlease enter your money.\n");
-        scanf("%d", &money);
+        scanf("*s");
     }
 
     while (money < 0) {
@@ -73,11 +72,9 @@ void askBetMoney(struct handInfo *player) {
     }
 
     while (money > getTotalMoney(player)) { //Do not let player bet if the amount of bet is larger than total money
-//        if (money > getTotalMoney(player)) {
             printf("\nYou do not have enough money! Please pick a smaller bet.\n");
             clear();
             scanf("%d", &money);
-//        }
     }
 
     player->betMoney = money;
@@ -162,13 +159,6 @@ int getPoint(struct handInfo *hand) {
                 hand->thirdCard + hand->fourthCard + hand->fifthCard;
     return total;
 }
-//
-//void getPointAndDispPlayer(struct handInfo *player) {
-//    int playerTotalPoint = getPointPlayer(player);
-//    printf("\tTOTAL PLAYER POINT: %d\n", playerTotalPoint); //Get and display player total point
-//}
-
-
 
 int isBlackJack(struct handInfo *hand) {
     int ace = 11, ten = 10, jack = 12, queen = 13, king = 14;
@@ -191,7 +181,6 @@ int isBlackJack(struct handInfo *hand) {
 
 int isBust(struct handInfo *hand) {
     if (getPoint(hand) > 21) {
-//        printf("\n\tBUST! YOU LOSE!\n\tGood luck next time!");
         return 1;
     }
     return 0;

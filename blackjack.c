@@ -47,20 +47,34 @@ void play(struct handInfo *player, struct handInfo *dealer, int *deck) {
     if (!isBlackJack(player)) {
         while (hitStand == 'h' && countCardPlayer <= 5) {
             //Ask player to hit or stand
-            hitStand = askHitOrStand(player);
+            hitStand = askHitOrStand();
+
+            // To fix the error that after adjust the value of card in getPoint, cards display incorrectly
+            int temp1 = player->firstCard, temp2 = player->secondCard,
+                    temp3 = player->thirdCard, temp4 = player->fourthCard, temp5 = player->fifthCard;
 
             //If player choose Hit, pick next cards
-
             if (hitStand == 'h') {
                 printf("\nPLAYER'S CARDS: \n");
                 sleep(1);
                 getNextCard(player, deck, countCardPlayer);
                 displayManyCards(player);
-//                printf("Players: %d - %d - %d - %d - %d\n", player->firstCard, player->secondCard, player->thirdCard,
-//                       player->fourthCard, player->fifthCard);
-                printf("\n\tTOTAL PLAYER POINT: %d\n", getPoint(player));
-                countCardPlayer++;
+
+                temp1 = player->firstCard;
+                temp2 = player->secondCard;
+                temp3 = player->thirdCard;
+                temp4 = player->fourthCard;
+                temp5 = player->fifthCard;
             }
+
+            printf("\n\tTOTAL PLAYER POINT: %d\n", getPoint(player));
+
+            player->firstCard = temp1;
+            player->secondCard = temp2;
+            player->thirdCard = temp3;
+            player->fourthCard = temp4;
+            player->fifthCard = temp5;
+            countCardPlayer++;
 
             //Do not let player hit another card if he/she busts
             if (isBust(player)) {
@@ -71,7 +85,7 @@ void play(struct handInfo *player, struct handInfo *dealer, int *deck) {
         }
     }
 
-    //Dealer get second card after player get enough cards
+//Dealer get second card after player get enough cards
     printf("\nNow is dealer's turn: \n");
     printf("\nDEALER'S CARDS: \n");
     sleep(1); //sleep to get different random card
@@ -82,28 +96,43 @@ void play(struct handInfo *player, struct handInfo *dealer, int *deck) {
     if (isBlackJack(dealer)) { //If dealer get blackjack, display text say so, and find winner directly
         printf("\n\t-----BLACKJACK----\n");
     } else {
-        while ((getPoint(dealer) <= 17 || (getPoint(dealer) < getPoint(player))) && countCardDealer <= 5) {
+        while ((getPoint(dealer) < 17 || ((getPoint(dealer) < getPoint(player)) &&
+                                          !isBust(player))) && getPoint(dealer) < 21 && countCardDealer <= 5) {
             printf("\nDealer hit one more card...\n");
             sleep(2);
             printf("\nDEALER'S CARDS: \n");
             sleep(1);
-            getNextCard(dealer, deck, countCardDealer);
+            getNextCard(dealer, deck, countCardDealer
+            );
             displayManyCards(dealer);
-//            printf("Dealer: %d - %d - %d - %d - %d\n", dealer->firstCard, dealer->secondCard, dealer->thirdCard,
-//                   dealer->fourthCard, dealer->fifthCard);
+
+// To fix the error that after adjust the value of card in getPoint, cards display incorrectly
+            int temp1 = 0, temp2 = 0, temp3 = 0, temp4 = 0, temp5 = 0;
+            temp1 = dealer->firstCard;
+            temp2 = dealer->secondCard;
+            temp3 = dealer->thirdCard;
+            temp4 = dealer->fourthCard;
+            temp5 = dealer->fifthCard;
+
             printf("\n\tTOTAL DEALER POINT: %d\n", getPoint(dealer));
+
+            dealer->firstCard = temp1;
+            dealer->secondCard = temp2;
+            dealer->thirdCard = temp3;
+            dealer->fourthCard = temp4;
+            dealer->fifthCard = temp5;
             countCardDealer++;
 
-            //Check if the dealer bust and terminate loop if true
+//Check if the dealer bust and terminate loop if true
             if (isBust(dealer)) {
                 printf("\n\t---->>DEALER BUSTS!<<----\n");
                 break;
             }
         }
+
+        printWinner(player, dealer);
+
     }
-
-    printWinner(player, dealer);
-
 }
 
 void initCards(struct handInfo *player, struct handInfo *dealer, int *deck) {
@@ -119,6 +148,7 @@ void initCards(struct handInfo *player, struct handInfo *dealer, int *deck) {
     //Display 2 cards of player
     printf("PLAYER'S CARDS: \n");
     displayManyCards(player);
+    int temp1 = player->firstCard, temp2 = player->secondCard;
 
     //Check if player got Blackjack, check before change value in getPoint
     if (isBlackJack(player)) {
@@ -126,13 +156,38 @@ void initCards(struct handInfo *player, struct handInfo *dealer, int *deck) {
     } else {
         printf("\n\tTOTAL PLAYER POINT: %d\n", getPoint(player));
     }
+    player->firstCard = temp1;
+    player->secondCard = temp2;
 
     //Get first card of dealer
     sleep(1);  //sleep to get different random card
     getFirstCard(dealer, deck); //Dealer get first card
     printf("DEALER'S FIRST CARD: \n");
     displayManyCards(dealer);
+    int firstCard = dealer->firstCard; //Store value of first card to set it back to display
     printf("\n\tTOTAL DEALER POINT: %d\n", getPoint(dealer));
+    dealer->firstCard = firstCard;
+}
+
+int checkCardIfAvailable(int card, int *deck) {
+    if (deck[card] >= 4) {
+        return 0;
+    }
+    return 1;
+}
+
+int getCard(int *deck) {
+    int card = 0;
+    while (checkCardIfAvailable(card, deck)) {
+        srand(time(NULL));
+        card = rand() % 13 + 2; //Get random card value from 2 to 14
+        if (checkCardIfAvailable(card, deck) && card != 0) { //Check if the card is available or not
+            deck[card]++;
+            break;
+        }
+        card = 0;
+    }
+    return card;
 }
 
 int changeCharacter(int card) {
@@ -159,7 +214,6 @@ int changeCharacter(int card) {
     }
     return card;
 }
-
 
 void displayManyCards(struct handInfo *hand) {
     short numCard = 0;
@@ -233,79 +287,17 @@ void displayManyCards(struct handInfo *hand) {
             temp4 = changeCharacter(temp4);
             temp5 = changeCharacter(temp5);
             printf("--------   --------   --------   --------   --------\n");
-            printf("|%2c    |   |%2c    |   |%2c    |   |%2c    |   |%2c    |\n", temp1, temp2, temp3, temp4, temp5);
+            printf("|%2c    |   |%2c    |   |%2c    |   |%2c    |   |%2c    |\n", temp1, temp2, temp3, temp4,
+                   temp5);
             printf("|      |   |      |   |      |   |      |   |      |\n");
-            printf("|    %2c|   |    %2c|   |    %2c|   |    %2c|   |    %2c|\n", temp1, temp2, temp3, temp4, temp5);
+            printf("|    %2c|   |    %2c|   |    %2c|   |    %2c|   |    %2c|\n", temp1, temp2, temp3, temp4,
+                   temp5);
             printf("--------   --------   --------   --------   --------\n");
             break;
     }
 }
 
-void displayCard(int card) {
-
-    //Card from 2 to 10
-    if (card <= 9) {
-        printf("-------\n");
-        printf("|%d    |\n", card);
-        printf("|     |\n");
-        printf("|    %d|\n", card);
-        printf("-------\n");
-    } else if (card == 10) {
-        printf("-------\n");
-        printf("|%d    |\n", card);
-        printf("|      |\n");
-        printf("|    %d|\n", card);
-        printf("-------\n");
-    } else if (card == 11) { //Ace Card
-        printf("-------\n");
-        printf("|%c    |\n", 'A');
-        printf("|     |\n");
-        printf("|    %c|\n", 'A');
-        printf("-------\n");
-    } else if (card == 12) { //Jack Card
-        printf("--------\n");
-        printf("|%c    |\n", 'J');
-        printf("|     |\n");
-        printf("|    %c|\n", 'J');
-        printf("--------\n");
-    } else if (card == 13) { //Queen Card
-        printf("-------\n");
-        printf("|%c    |\n", 'Q');
-        printf("|     |\n");
-        printf("|    %c|\n", 'Q');
-        printf("-------\n");
-    } else if (card == 14) { //King Card
-        printf("-------\n");
-        printf("|%c    |\n", 'K');
-        printf("|     |\n");
-        printf("|    %c|\n", 'K');
-        printf("-------\n");
-    }
-}
-
-int checkCardIfAvailable(int card, int *deck) {
-    if (deck[card] >= 4) {
-        return 0;
-    }
-    return 1;
-}
-
-int getCard(int *deck) {
-    int card = 0;
-    while (checkCardIfAvailable(card, deck)) {
-        srand(time(NULL));
-        card = rand() % 13 + 2; //Get random card value from 2 to 14
-        if (checkCardIfAvailable(card, deck) && card != 0) { //Check if the card is available or not
-            deck[card]++;
-            break;
-        }
-        card = 0;
-    }
-    return card;
-}
-
-
-char askHitOrStand(struct handInfo *player) {
+char askHitOrStand() {
     char answer;
     int check = 1;
     while (check) {
@@ -401,24 +393,17 @@ int displayAskMenu() {
     int answer = 0;
     printf("Enter 1 to Play\n");
     printf("Enter 2 to See the Rules.\n");
-    printf("Enter 3 to Exit Game.\n");
+    printf("Enter 3 for Credits.\n");
+    printf("Enter 4 to Exit Game.\n");
     scanf("%d", &answer);
 
-    while (answer != 1 && answer != 2 && answer != 3) {
-        printf("\nIncorrect choice. Please enter 1, 2 or 3.\n");
+    while (answer != 1 && answer != 2 && answer != 3 && answer != 4) {
+        printf("\nIncorrect choice. Please enter 1 to Play, 2 to See the Rules, 3 for Credit, or 4 Exit.\n");
         clear();
         scanf("%d", &answer);
     }
 
     return answer;
-//    switch (answer) {
-//        case 1:
-//            return 1;
-//        case 2:
-//            return 2;
-//        case 3:
-//            return 3;
-//    }
 }
 
 void displayRules() {
@@ -461,3 +446,10 @@ void displayRules() {
     printf("\n     After a play, and if you still have enough money, you can always play again.\n\n");
 }
 
+void displayCredits() {
+    printf("\tRMIT University Vietnam\n");
+    printf("\tSemester 1 - 2017\n");
+    printf("\tCourse: COSC2451 - Programming Techniques\n");
+    printf("\tLecturer: Dr. Denis Rinfret\n");
+    printf("\tStudent: Nguyen Tri Dung - s3598776\n\n");
+}
